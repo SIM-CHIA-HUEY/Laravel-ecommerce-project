@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\testCtrl;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('test', ['name'=>'Florian']);
 });
+
+Route::post('/search', [testCtrl::class, 'form']);
+
+Route::get('/maths/{number}', [testCtrl::class, 'add']);
+Route::get('/users', [testCtrl::class, 'viewUsers']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
