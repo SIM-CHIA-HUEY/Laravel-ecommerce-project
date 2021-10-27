@@ -12,4 +12,4 @@
         <link rel="stylesheet" href="{{asset('./css/style.css')}}">
         <title>Free ads !</title>
     </head>
-    <body
+    <body class="h-100">
