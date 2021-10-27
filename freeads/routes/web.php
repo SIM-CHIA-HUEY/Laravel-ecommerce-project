@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\testCtrl;
+use App\Http\Controllers\welcomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +14,9 @@ use App\Http\Controllers\testCtrl;
 |
 */
 
-Route::get('/', view('welcome'));
+Route::get('/', [welcomeController::class, 'index']);
+Route::get('/category/{category}', [welcomeController::class, 'displayCategory']);
+/*
 
 Route::post('/search', [testCtrl::class, 'form']);
 
@@ -24,5 +26,5 @@ Route::get('/users', [testCtrl::class, 'viewUsers']);
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-
+*/
 require __DIR__.'/auth.php';

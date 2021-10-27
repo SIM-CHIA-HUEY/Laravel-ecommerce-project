@@ -109,7 +109,7 @@ CREATE TABLE `users` (
   `email_verified_at` date DEFAULT NULL,
   `password` text NOT NULL,
   `remember_token` text,
-  `created_at` int NOT NULL,
+  `created_at` date NOT NULL,
   `updated_at` date NOT NULL,
   `phone_number` text,
   `active` int NOT NULL DEFAULT '1',
