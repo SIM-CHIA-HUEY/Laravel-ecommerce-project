@@ -16,6 +16,7 @@ use App\Http\Controllers\welcomeController;
 
 Route::get('/', [welcomeController::class, 'index']);
 Route::get('/category/{category}', [welcomeController::class, 'displayCategory']);
+Route::post('/search', [welcomeController::class, 'search']);
 /*
 
 Route::post('/search', [testCtrl::class, 'form']);

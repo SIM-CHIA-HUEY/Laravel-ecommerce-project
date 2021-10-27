@@ -20,6 +20,13 @@
 .cardad img {
     display: block;
     height: auto;
+    max-height: 100%;
+    width: auto;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 .h-30 {
     height: 30%;

@@ -14,10 +14,17 @@ class welcomeController extends Controller
         // Get category list.
         $categories = Category::all();
         // Get ads
-        $ads = Ad::all();
+        $ads = DB::select('SELECT *, (SELECT pictures.url FROM pictures WHERE pictures.ads_id = ads.id) AS picture FROM ads');
         return view('welcome', 
         ['categories' => $categories, 
         'ads' => $ads]);
+    }
+    public function search(Request $request) {
+        $search = $request->search;
+        $location = $request->location;
+        return view('welcome',
+        ['categories' => Category::all(),
+        'ads' => Ad::where('title', 'like', '%'.$search.'%')]);
     }
     public function displayCategory(int $categoryID) {
         // Get category list.
