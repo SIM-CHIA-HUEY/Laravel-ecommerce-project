@@ -14,9 +14,7 @@ use App\Http\Controllers\testCtrl;
 |
 */
 
-Route::get('/', function () {
-    return view('test', ['name'=>'Florian']);
-});
+Route::get('/', view('welcome'));
 
 Route::post('/search', [testCtrl::class, 'form']);
 
