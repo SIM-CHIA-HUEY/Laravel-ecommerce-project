@@ -12,9 +12,7 @@
     <div class="container px-4 bg-lightblue">
         <div class="row p-3">
             @include('adcard')
-            @include('adcard')
-            @include('adcard')
         </div>
-        @include('navlink');
+        @include('navlink')
     </div>
 @include('foot')

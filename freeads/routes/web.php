@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\testCtrl;
+use App\Http\Controllers\welcomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +15,7 @@ use App\Http\Controllers\testCtrl;
 */
 
 Route::get('/', [welcomeController::class, 'index']);
+Route::get('/category/{category}', [welcomeController::class, 'displayCategory']);
 /*
 
 Route::post('/search', [testCtrl::class, 'form']);
