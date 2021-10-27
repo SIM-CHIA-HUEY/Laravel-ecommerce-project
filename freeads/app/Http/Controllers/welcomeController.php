@@ -16,7 +16,8 @@ class welcomeController extends Controller
         // Get ads
         $ads = Ad::all();
         return view('welcome', 
-        ['categories' => $categories, 'ads' => $ads]);
+        ['categories' => $categories, 
+        'ads' => $ads]);
     }
     public function displayCategory(int $categoryID) {
         // Get category list.
@@ -25,9 +26,18 @@ class welcomeController extends Controller
         // Get ads with given IDs
         $ids = $this->buildIDArray($categoryID);
         $ads = Ad::whereIn('category_id', $ids)->get();
-
+        $categoryList = DB::select('with recursive tree AS (
+            select id, name, parent_id from categories where id=?
+            union all
+            select parent.id, parent.name, parent.parent_id from categories as parent
+            join tree on tree.parent_id = parent.id
+            )
+            select id, name from tree', [$categoryID]);
+        $categoryList = array_reverse($categoryList);
         return view('welcome', 
-        ['categories' => $categories, 'ads' => $ads]);
+        ['categories' => $categories, 
+        'ads' => $ads,
+        'categoryList' => $categoryList]);
     }
     private function buildIDArray($categoryID) {
         // Initiate array
