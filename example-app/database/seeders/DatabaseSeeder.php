@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        ini_set('memory_limit','-1');
         DB::unprepared(file_get_contents(__dir__ . '/base.sql'));
         // \App\Models\User::factory(10)->create();
     }
