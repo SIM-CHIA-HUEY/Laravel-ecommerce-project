@@ -7,7 +7,7 @@
             </a>
         </div>
         <div class="d-flex flex-column">
-            <a href="#" class="btn btn-md btn-outline-light mx-1 border-0">
+            <a href="/postad" class="btn btn-md btn-outline-light mx-1 border-0">
                 <div class="text-center"><i class="bi bi-pin-angle"></i></div>
                 <div class="text-center">Post ad</div>
             </a>

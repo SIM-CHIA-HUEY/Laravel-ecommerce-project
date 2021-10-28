@@ -7,6 +7,12 @@
 .bg-steelblue {
     background-color: #2b6777;
 }
+.btn-steelblue {
+    background-color: #2b6777;
+}
+.btn-duckblue {
+    background-color: #52ab98;
+}
 .text-duckblue {
     color: #52ab98;
 }
@@ -20,6 +26,13 @@
 .cardad img {
     display: block;
     height: auto;
+    max-height: 100%;
+    width: auto;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 .h-30 {
     height: 30%;
