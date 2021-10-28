@@ -6,33 +6,49 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Ad;
 use Illuminate\Support\Facades\DB;
+use App\Models\Picture;
 
 class welcomeController extends Controller
 {
-    //
-    public function index() {
-        // Get category list.
-        $categories = Category::all();
-        // Get ads
-        $ads = DB::select('SELECT *, (SELECT pictures.url FROM pictures WHERE pictures.ads_id = ads.id) AS picture FROM ads');
-        return view('welcome', 
-        ['categories' => $categories, 
-        'ads' => $ads]);
+    private $categories;
+
+    public function __construct()
+    {
+        $this->categories = Category::all();
     }
+    public function index() {
+
+        // Get ads
+        $ads = DB::table('ads')
+                ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
+                ->select('ads.*', 'pictures.url')
+                ->get();
+
+        return view('welcome', 
+        ['categories' => $this->categories, 
+        'ads' => $ads,
+        'page' => 'index']);
+    }
+    // Work in progress
+    // 
     public function search(Request $request) {
         $search = $request->search;
         $location = $request->location;
+
         return view('welcome',
-        ['categories' => Category::all(),
+        ['categories' => $this->categories,
         'ads' => Ad::where('title', 'like', '%'.$search.'%')]);
     }
+    // Get ads for a given category.
     public function displayCategory(int $categoryID) {
-        // Get category list.
-        $categories = Category::all();
 
         // Get ads with given IDs
         $ids = $this->buildIDArray($categoryID);
-        $ads = Ad::whereIn('category_id', $ids)->get();
+        $ads = DB::table('ads')
+                ->whereIn('ads.category_id', $ids)
+                ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
+                ->get();
+        // Get category list for breadcrumb
         $categoryList = DB::select('with recursive tree AS (
             select id, name, parent_id from categories where id=?
             union all
@@ -41,8 +57,9 @@ class welcomeController extends Controller
             )
             select id, name from tree', [$categoryID]);
         $categoryList = array_reverse($categoryList);
+
         return view('welcome', 
-        ['categories' => $categories, 
+        ['categories' => $this->categories, 
         'ads' => $ads,
         'categoryList' => $categoryList]);
     }

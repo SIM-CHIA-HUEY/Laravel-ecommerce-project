@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\postadController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\welcomeController;
 
@@ -17,6 +18,8 @@ use App\Http\Controllers\welcomeController;
 Route::get('/', [welcomeController::class, 'index']);
 Route::get('/category/{category}', [welcomeController::class, 'displayCategory']);
 Route::post('/search', [welcomeController::class, 'search']);
+Route::get('/postad', [postadController::class, 'index']);
+Route::post('/postad', [postadController::class, 'post']);
 /*
 
 Route::post('/search', [testCtrl::class, 'form']);
