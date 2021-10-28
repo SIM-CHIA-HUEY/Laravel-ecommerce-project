@@ -1,36 +1,34 @@
 <!DOCTYPE html>
 
+    @include('head')
 
-@extends('layouts.app')
-@section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center pt-5">
-                <h1 class="display-one mt-5">{{ config('app.name') }}</h1>
-                <p>This awesome blog has many articles, click the button below to see them</p>
-                <br>
-                <a href="/blog" class="btn btn-outline-primary">Show Blog</a>
-            </div>
+    <!-- TOP SCREEN : FIXED -->
+    <div class="sticky-top">
+
+    <!-- HEADER : Logo, buttons of postAds/search/login or logout-->
+    @include('header')
+
+    <!-- SEARCHBAR : Looking for... in which location... -->
+    @include('searchbar')
+    <!-- CATEGORIES : Cars & vehicles, For sale, etc. -->
+        @include('categorybar')
+
+    </div>
+
+    <!-- BODY : Results of research (this is a public and private page, no need for protection so it stays here) -->
+    <div class="container px-4 bg-lightblue">
+        <div class="row p-3">
+            @include('adcard')
+
+            @include('main')
+
         </div>
+        @include('navlink')
     </div>
-@endsection
+
+    <!-- FOOTER -->
+    @include('foot')
 
 
-@include('head')
-<!-- TOP SCREEN : FIXED -->
-<div class="sticky-top">
-    <!-- HEADER -->
-@include('header')
-<!-- SEARCHBAR -->
-@include('searchbar')
-<!-- CATEGORIES -->
-    @include('categorybar')
-</div>
-<!-- RESULTS -->
-<div class="container px-4 bg-lightblue">
-    <div class="row p-3">
-        @include('adcard')
-    </div>
-    @include('navlink')
-</div>
-@include('foot')
+
+

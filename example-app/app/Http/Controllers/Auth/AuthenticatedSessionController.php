@@ -51,7 +51,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/');
         //return redirect()->intended(RouteServiceProvider::HOME); //when logout, go back to /login page
     }
 }

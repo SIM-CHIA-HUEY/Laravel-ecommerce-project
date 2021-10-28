@@ -1,9 +1,14 @@
+@include('head')
+
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+            <div class="block bg-steelblue">
+            <a href="/" class="btn">
+                <h1><span class='text-light'>Free</span>
+                    <span class="ms-2 text-duckblue"><i class="align-self-center bi bi-badge-ad-fill"></i></span></h1>
             </a>
+            </div>
         </x-slot>
 
         <!-- Session Status -->
@@ -50,7 +55,23 @@
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>
+
             </div>
         </form>
+
+
+        <br><br>
+        <hr>
+
+        <div class="block mt-5">
+            <p style="text-align: center">No account yet ? Register a free new account here.</p>
+            <br>
+            <div class="text-center">
+                <a class="btn btn-dark"  href="{{ route('register') }}">Register</a>
+            </div>
+        </div>
+
     </x-auth-card>
+
+
 </x-guest-layout>
