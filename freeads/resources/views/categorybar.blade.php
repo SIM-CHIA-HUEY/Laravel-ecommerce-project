@@ -2,8 +2,8 @@
     <div class="accordion" id="accordionExample">
         <div class="container d-flex flex-row flex-wrap categories">
             <div class="flex-fill text-center category">
-                <button class="btn btn-duckblue" type="button" data-bs-toggle="offcanvas" data-bs-target="#filters" aria-controls="filters">
-                Filters
+                <button class="btn btn-duckblue p-1 m-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#filters" aria-controls="filters">
+                    Filters
                 </button>
             </div>
             <i class="align-self-center sbi bi-three-dots-vertical"></i>
