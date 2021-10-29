@@ -9,7 +9,7 @@
         @include('categorybar')
     </div>
     <!-- RESULTS -->
-    <div class="container px-4 bg-lightblue">
+    <div class="container px-md-4 bg-lightblue">
         @isset($categoryList)
         <div class="d-flex flex-row align-items-center">
             <div><a href='/' class='btn'><i class="bi bi-house-door text-duckblue"></i> Home </a></div>
@@ -20,7 +20,8 @@
             @endforeach
         </div>
         @endisset
-        <div class="row p-3">
+        <div class="row p-md-3">
+            @include('filters')
             @include('adcard')
         </div>
         @include('navlink')

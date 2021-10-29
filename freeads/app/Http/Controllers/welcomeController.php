@@ -20,7 +20,9 @@ class welcomeController extends Controller
     }
     // Build data for the view.
     private function getViewData($ads, $categoryList=Null, $page=1) {
+        // Reset category list.
         session()->forget('categoryList');
+        // Update session data.
         session(['ads' => $ads]);
         $data = [
                 'categories' => $this->categories, 
@@ -32,6 +34,7 @@ class welcomeController extends Controller
             session(['categoryList' => $categoryList]);
             $data['categoryList'] = $categoryList;
         }
+        // Return display data.
         return $data;
     }
     public function index() {
@@ -43,12 +46,15 @@ class welcomeController extends Controller
                 ->select('ads.*', 'pictures.url')
                 ->get();
 
+        // Retrieve display data.
         $viewData = $this->getViewData($ads);
 
+        // Disable display by line instead of box.
+        session()->forget('viewinline');
+
+        // Display the view.
         return view('welcome', $viewData);
     }
-    // Work in progress
-    // 
     public function search(Request $request) {
         $search = '%'.$request->search.'%';
         $location = $request->location;
@@ -58,6 +64,7 @@ class welcomeController extends Controller
             'search' => 'required'
         ]);
 
+        // Search in the DB for the location & search data.
         if(is_null($location)) {
             $ads = DB::table('ads')
                     ->where('title', 'like', $search)
@@ -78,8 +85,13 @@ class welcomeController extends Controller
                     ->select('ads.*', 'pictures.url', 'locations.id')
                     ->get();
         }
+        // Retrieve display data.
         $viewData = $this->getViewData($ads);
 
+        // Active display by line instead of box.
+        session(['viewinline'=>true]);
+
+        // Display the view.
         return view('welcome', $viewData);
     }
     // Get ads for a given category.
@@ -94,6 +106,7 @@ class welcomeController extends Controller
                 ->where('main_picture', '=', '1')
                 ->get();
         session(['ads' => $ads]);
+
         // Get category list for breadcrumb
         $categoryList = DB::select('with recursive tree AS (
             select id, name, parent_id from categories where id=?
@@ -103,8 +116,14 @@ class welcomeController extends Controller
             )
             select id, name from tree', [$categoryID]);
         $categoryList = array_reverse($categoryList);
+        
+        // Active display by line instead of box.
+        session(['viewinline'=>true]);
 
+        // Retrive display data.
         $viewData = $this->getViewData($ads, $categoryList);
+
+        // Display the view.
         return view('welcome', $viewData);
     }
     private function buildIDArray($categoryID) {
@@ -151,5 +170,37 @@ class welcomeController extends Controller
     private function getNumberOfPage($ads) {
         $numberOfPage = CEIL(count($ads) / $this->adPerPage);
         return $numberOfPage;
+    }
+    public function filters(Request $request) {
+        // Retrieve data
+        $ads = session('ads');
+        $newAds = array();
+        // Validate the form
+        $validated = $request->validate([
+            'min_price' => 'numeric|min:0',
+            'max_price' => 'nullable|numeric|min:0'
+        ]);
+        $min_price = $request->min_price;
+        $max_price = $request->max_price;
+        if(!is_null($max_price) && $max_price < $min_price) {
+            $max_price = $min_price;
+        }
+        foreach($ads as $ad) {
+            if(!is_null($max_price)) {
+                if($ad->price < $max_price && $ad->price > $min_price) {
+                    array_push($newAds, $ad);
+                }
+            } else {
+                if($ad->price > $min_price) {
+                    array_push($newAds, $ad);
+                }
+            }
+        }
+        // Retrieve display data.
+        $viewData = $this->getViewData($newAds);
+
+        // Active display by line instead of box.
+        session(['viewinline'=>true]);
+        return view('welcome', $viewData);
     }
 }
