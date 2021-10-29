@@ -20,7 +20,7 @@
         <div class="row p-3">
             @include('adcard')
 
-            @include('main')
+            @include('layouts.main')
 
         </div>
         @include('navlink')
