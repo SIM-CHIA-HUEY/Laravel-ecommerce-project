@@ -17,18 +17,11 @@ use App\Http\Controllers\welcomeController;
 
 Route::get('/', [welcomeController::class, 'index']);
 Route::get('/category/{category}', [welcomeController::class, 'displayCategory']);
+
 Route::post('/search', [welcomeController::class, 'search']);
+Route::get('/search', [welcomeController::class, 'index']);
+
 Route::get('/postad', [postadController::class, 'index']);
 Route::post('/postad', [postadController::class, 'post']);
-/*
 
-Route::post('/search', [testCtrl::class, 'form']);
-
-Route::get('/maths/{number}', [testCtrl::class, 'add']);
-Route::get('/users', [testCtrl::class, 'viewUsers']);
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-*/
 require __DIR__.'/auth.php';

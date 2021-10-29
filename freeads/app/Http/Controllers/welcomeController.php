@@ -34,12 +34,38 @@ class welcomeController extends Controller
     // Work in progress
     // 
     public function search(Request $request) {
-        $search = $request->search;
+        $search = '%'.$request->search.'%';
         $location = $request->location;
+
+        // Validate data received
+        $validated = $request->validate([
+            'search' => 'required'
+        ]);
+
+        if(is_null($location)) {
+            $ads = DB::table('ads')
+                    ->where('title', 'like', $search)
+                    ->where('active', '=', '1')
+                    ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
+                    ->where('main_picture', '=', '1')
+                    ->select('ads.*', 'pictures.url')
+                    ->get();
+        } else {
+            $ads = DB::table('ads')
+                    ->where('title', 'like', $search)
+                    ->where('active', '=', '1')
+                    ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
+                    ->where('main_picture', '=', '1')
+                    ->leftJoin('locations', 'ads.location_id', '=', 'locations.id')
+                    ->where('postcode', '=', $location)
+                    ->orWhere('city', 'like', $location)
+                    ->select('ads.*', 'pictures.url', 'locations.id')
+                    ->get();
+        }
 
         return view('welcome',
         ['categories' => $this->categories,
-        'ads' => Ad::where('title', 'like', '%'.$search.'%')]);
+        'ads' => $ads]);
     }
     // Get ads for a given category.
     public function displayCategory(int $categoryID) {
