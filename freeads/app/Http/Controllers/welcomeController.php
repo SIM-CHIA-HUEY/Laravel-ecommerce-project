@@ -20,7 +20,9 @@ class welcomeController extends Controller
 
         // Get ads
         $ads = DB::table('ads')
+                ->where('active', '=', '1')
                 ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
+                ->where('main_picture', '=', '1')
                 ->select('ads.*', 'pictures.url')
                 ->get();
 
@@ -45,8 +47,10 @@ class welcomeController extends Controller
         // Get ads with given IDs
         $ids = $this->buildIDArray($categoryID);
         $ads = DB::table('ads')
+                ->where('active', '=', '1')
                 ->whereIn('ads.category_id', $ids)
                 ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
+                ->where('main_picture', '=', '1')
                 ->get();
         // Get category list for breadcrumb
         $categoryList = DB::select('with recursive tree AS (
