@@ -25,7 +25,7 @@ Route::get('/dashboard', function () {
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', '\App\Http\Controllers\RoleController');
     Route::resource('users', '\App\Http\Controllers\UserController');
-    Route::resource('blogs', '\App\Http\Controllers\AdController');
+    Route::resource('ads', '\App\Http\Controllers\AdController');
 });
 
 
