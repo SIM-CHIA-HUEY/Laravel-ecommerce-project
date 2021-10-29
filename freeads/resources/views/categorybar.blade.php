@@ -1,6 +1,11 @@
 <div class="bg-light border-bottom">
     <div class="accordion" id="accordionExample">
         <div class="container d-flex flex-row flex-wrap categories">
+            <div class="flex-fill text-center category">
+                <button class="btn btn-duckblue" type="button" data-bs-toggle="offcanvas" data-bs-target="#filters" aria-controls="filters">
+                Filters
+                </button>
+            </div>
             <i class="align-self-center sbi bi-three-dots-vertical"></i>
             @foreach($categories as $rootCategory)
                 @if($rootCategory->parent_id == NULL)

@@ -15,20 +15,25 @@ use App\Http\Controllers\welcomeController;
 |
 */
 
+// Classic index
 Route::get('/', [welcomeController::class, 'index']);
+
+// Filter by category
 Route::get('/category/{category}', [welcomeController::class, 'displayCategory']);
+
+// Search bar has been used.
 Route::post('/search', [welcomeController::class, 'search']);
+Route::get('/search', [welcomeController::class, 'index']);
+
+// User posted a new ad.
 Route::get('/postad', [postadController::class, 'index']);
 Route::post('/postad', [postadController::class, 'post']);
-/*
 
-Route::post('/search', [testCtrl::class, 'form']);
+// Switch between pages.
+Route::get('/page/{number}', [welcomeController::class, 'displayPage']);
 
-Route::get('/maths/{number}', [testCtrl::class, 'add']);
-Route::get('/users', [testCtrl::class, 'viewUsers']);
+// Filters has been applied.
+Route::post('/filters', [welcomeController::class, 'filters']);
+Route::get('/filters', [welcomeController::class, 'index']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-*/
 require __DIR__.'/auth.php';
