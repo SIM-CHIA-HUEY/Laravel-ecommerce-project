@@ -11,13 +11,30 @@ use App\Models\Picture;
 class welcomeController extends Controller
 {
     private $categories;
+    private $adPerPage;
 
     public function __construct()
     {
         $this->categories = Category::all();
+        $this->adPerPage = 8;
+    }
+    // Build data for the view.
+    private function getViewData($ads, $categoryList=Null, $page=1) {
+        session()->forget('categoryList');
+        session(['ads' => $ads]);
+        $data = [
+                'categories' => $this->categories, 
+                'ads' => $ads,
+                'page' => $page,
+                'number_of_page' => $this->getNumberOfPage($ads)
+                ];
+        if(!is_null($categoryList)) {
+            session(['categoryList' => $categoryList]);
+            $data['categoryList'] = $categoryList;
+        }
+        return $data;
     }
     public function index() {
-
         // Get ads
         $ads = DB::table('ads')
                 ->where('active', '=', '1')
@@ -26,10 +43,9 @@ class welcomeController extends Controller
                 ->select('ads.*', 'pictures.url')
                 ->get();
 
-        return view('welcome', 
-        ['categories' => $this->categories, 
-        'ads' => $ads,
-        'page' => 'index']);
+        $viewData = $this->getViewData($ads);
+
+        return view('welcome', $viewData);
     }
     // Work in progress
     // 
@@ -62,10 +78,9 @@ class welcomeController extends Controller
                     ->select('ads.*', 'pictures.url', 'locations.id')
                     ->get();
         }
+        $viewData = $this->getViewData($ads);
 
-        return view('welcome',
-        ['categories' => $this->categories,
-        'ads' => $ads]);
+        return view('welcome', $viewData);
     }
     // Get ads for a given category.
     public function displayCategory(int $categoryID) {
@@ -78,6 +93,7 @@ class welcomeController extends Controller
                 ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
                 ->where('main_picture', '=', '1')
                 ->get();
+        session(['ads' => $ads]);
         // Get category list for breadcrumb
         $categoryList = DB::select('with recursive tree AS (
             select id, name, parent_id from categories where id=?
@@ -88,10 +104,8 @@ class welcomeController extends Controller
             select id, name from tree', [$categoryID]);
         $categoryList = array_reverse($categoryList);
 
-        return view('welcome', 
-        ['categories' => $this->categories, 
-        'ads' => $ads,
-        'categoryList' => $categoryList]);
+        $viewData = $this->getViewData($ads, $categoryList);
+        return view('welcome', $viewData);
     }
     private function buildIDArray($categoryID) {
         // Initiate array
@@ -121,5 +135,21 @@ class welcomeController extends Controller
         }
         // Return completed array.
         return $ids;
+    }
+    public function displayPage($page) {
+        $ads = session('ads');
+        $categoryList = session('categoryList');
+        if($page > $this->getNumberOfPage($ads)) {
+            $page = $this->getNumberOfPage($ads);
+        }
+        if($page < 1) {
+            $page = 1;
+        }
+        $viewData = $this->getViewData($ads, $categoryList, $page);
+        return view('welcome', $viewData);
+    }
+    private function getNumberOfPage($ads) {
+        $numberOfPage = CEIL(count($ads) / $this->adPerPage);
+        return $numberOfPage;
     }
 }

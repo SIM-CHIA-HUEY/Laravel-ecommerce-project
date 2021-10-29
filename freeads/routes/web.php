@@ -24,4 +24,5 @@ Route::get('/search', [welcomeController::class, 'index']);
 Route::get('/postad', [postadController::class, 'index']);
 Route::post('/postad', [postadController::class, 'post']);
 
+Route::get('/page/{number}', [welcomeController::class, 'displayPage']);
 require __DIR__.'/auth.php';

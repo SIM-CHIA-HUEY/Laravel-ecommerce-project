@@ -9,7 +9,7 @@
         @include('categorybar')
     </div>
     <!-- RESULTS -->
-    <div class="container px-4 bg-lightblue h-100">
+    <div class="container px-4 bg-lightblue">
         @isset($categoryList)
         <div class="d-flex flex-row align-items-center">
             <div><a href='/' class='btn'><i class="bi bi-house-door text-duckblue"></i> Home </a></div>
