@@ -6,13 +6,11 @@
             <div class="card mb-1 p-lg-1">
                 <div class="d-flex row">
                     <!-- Image box -->
-                    <div class="col-5 col-sm-4 col-lg-2" style="height: 7rem;">
-                        <button type="button" class="btn position-relative h-100">
-                            <img src="{{asset($ads[$i]->url)}}" class="img-fluid h-100">
-                            <span class="position-absolute top-0 end-0 badge rounded-pill bg-duckblue">
-                                <i class="bi bi-camera"></i> 2
-                            </span>
-                        </button>
+                    <div class="col-5 col-sm-4 col-lg-2 position-relative" style="height: 7rem;">
+                        <img src="{{asset($ads[$i]->url)}}" class="img-fluid h-100">
+                        <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-duckblue">
+                            <i class="bi bi-camera me-1"></i> <small>2</small>
+                        </span>
                     </div>
                     <!-- Text box -->
                     <div class="d-flex flex-column col-sm-7 col-5 col-lg-9">

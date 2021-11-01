@@ -1,4 +1,4 @@
-<div class="p-5">
+<div class="p-md-5">
     <h5 class="mb-3">Post a new Ad</h5>
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -22,7 +22,7 @@
         <!-- Title input -->
         <input type="text" name="title" class="form-control m-1" placeholder="Ad title" value="{{old('title')}}">
         <!-- Description input -->
-        <textarea class="form-control m-1" name="description" aria-label="With textarea" placeholder="Description">{{ old('description')}}</textarea>
+        <textarea rows="10" class="form-control m-1" name="description" aria-label="With textarea" placeholder="Description">{{ old('description')}}</textarea>
         <!-- Category input -->
         <div class="input-group m-1">
             <label class="input-group-text" for="inputGroupSelectCategory">Categories</label>
