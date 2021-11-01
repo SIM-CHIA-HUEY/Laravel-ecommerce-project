@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\postadController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\welcomeController;
 
@@ -14,17 +15,25 @@ use App\Http\Controllers\welcomeController;
 |
 */
 
+// Classic index
 Route::get('/', [welcomeController::class, 'index']);
+
+// Filter by category
 Route::get('/category/{category}', [welcomeController::class, 'displayCategory']);
-/*
 
-Route::post('/search', [testCtrl::class, 'form']);
+// Search bar has been used.
+Route::post('/search', [welcomeController::class, 'search']);
+Route::get('/search', [welcomeController::class, 'index']);
 
-Route::get('/maths/{number}', [testCtrl::class, 'add']);
-Route::get('/users', [testCtrl::class, 'viewUsers']);
+// User posted a new ad.
+Route::get('/postad', [postadController::class, 'index']);
+Route::post('/postad', [postadController::class, 'post']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-*/
+// Switch between pages.
+Route::get('/page/{number}', [welcomeController::class, 'displayPage']);
+
+// Filters has been applied.
+Route::post('/filters', [welcomeController::class, 'filters']);
+Route::get('/filters', [welcomeController::class, 'index']);
+
 require __DIR__.'/auth.php';
