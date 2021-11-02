@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Ad;
 use Illuminate\Support\Facades\DB;
+use App\Models\Picture;
 
 class welcomeController extends Controller
 {
@@ -37,22 +38,93 @@ class welcomeController extends Controller
         return $data;
     }
     public function index() {
-        // Get category list.
-        $categories = Category::all();
         // Get ads
-        $ads = Ad::all();
-        return view('welcome', ['categories' => $categories, 'ads' => $ads]);
+        $ads = DB::table('ads')
+                ->where('active', '=', '1')
+                ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
+                ->where('main_picture', '=', '1')
+                ->select('ads.*', 'pictures.url')
+                ->get();
+
+        // Retrieve display data.
+        $viewData = $this->getViewData($ads);
+
+        // Disable display by line instead of box.
+        session()->forget('viewinline');
+
+        // Display the view.
+        return view('welcome', $viewData);
     }
+    public function search(Request $request) {
+        $search = '%'.$request->search.'%';
+        $location = $request->location;
+
+        // Validate data received
+        $validated = $request->validate([
+            'search' => 'required'
+        ]);
+
+        // Search in the DB for the location & search data.
+        if(is_null($location)) {
+            $ads = DB::table('ads')
+                    ->where('title', 'like', $search)
+                    ->where('active', '=', '1')
+                    ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
+                    ->where('main_picture', '=', '1')
+                    ->select('ads.*', 'pictures.url')
+                    ->get();
+        } else {
+            $ads = DB::table('ads')
+                    ->where('title', 'like', $search)
+                    ->where('active', '=', '1')
+                    ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
+                    ->where('main_picture', '=', '1')
+                    ->leftJoin('locations', 'ads.location_id', '=', 'locations.id')
+                    ->where('postcode', '=', $location)
+                    ->orWhere('city', 'like', $location)
+                    ->select('ads.*', 'pictures.url', 'locations.id')
+                    ->get();
+        }
+        // Retrieve display data.
+        $viewData = $this->getViewData($ads);
+
+        // Active display by line instead of box.
+        session(['viewinline'=>true]);
+
+        // Display the view.
+        return view('welcome', $viewData);
+    }
+    // Get ads for a given category.
     public function displayCategory(int $categoryID) {
-        // Get category list.
-        $categories = Category::all();
 
         // Get ads with given IDs
         $ids = $this->buildIDArray($categoryID);
-        $ads = Ad::whereIn('category_id', $ids)->get();
+        $ads = DB::table('ads')
+                ->where('active', '=', '1')
+                ->whereIn('ads.category_id', $ids)
+                ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
+                ->where('main_picture', '=', '1')
+                ->get();
+        session(['ads' => $ads]);
 
-        return view('welcome',
-            ['categories' => $categories, 'ads' => $ads]);
+        // Get category list for breadcrumb
+        $categoryList = DB::select('with recursive tree AS (
+            select id, name, parent_id from categories where id=?
+            union all
+            select parent.id, parent.name, parent.parent_id from categories as parent
+            join tree on tree.parent_id = parent.id
+            )
+            select id, name from tree', [$categoryID]);
+        $categoryList = array_reverse($categoryList);
+        
+        // Active display by line instead of box.
+        session(['viewinline'=>true]);
+
+        // Retrive display data.
+        $viewData = $this->getViewData($ads, $categoryList);
+
+        // Display the view.
+        return view('welcome', $viewData);
     }
     private function buildIDArray($categoryID) {
         // Initiate array
@@ -82,5 +154,53 @@ class welcomeController extends Controller
         }
         // Return completed array.
         return $ids;
+    }
+    public function displayPage($page) {
+        $ads = session('ads');
+        $categoryList = session('categoryList');
+        if($page > $this->getNumberOfPage($ads)) {
+            $page = $this->getNumberOfPage($ads);
+        }
+        if($page < 1) {
+            $page = 1;
+        }
+        $viewData = $this->getViewData($ads, $categoryList, $page);
+        return view('welcome', $viewData);
+    }
+    private function getNumberOfPage($ads) {
+        $numberOfPage = CEIL(count($ads) / $this->adPerPage);
+        return $numberOfPage;
+    }
+    public function filters(Request $request) {
+        // Retrieve data
+        $ads = session('ads');
+        $newAds = array();
+        // Validate the form
+        $validated = $request->validate([
+            'min_price' => 'numeric|min:0',
+            'max_price' => 'nullable|numeric|min:0'
+        ]);
+        $min_price = $request->min_price;
+        $max_price = $request->max_price;
+        if(!is_null($max_price) && $max_price < $min_price) {
+            $max_price = $min_price;
+        }
+        foreach($ads as $ad) {
+            if(!is_null($max_price)) {
+                if($ad->price < $max_price && $ad->price > $min_price) {
+                    array_push($newAds, $ad);
+                }
+            } else {
+                if($ad->price > $min_price) {
+                    array_push($newAds, $ad);
+                }
+            }
+        }
+        // Retrieve display data.
+        $viewData = $this->getViewData($newAds);
+
+        // Active display by line instead of box.
+        session(['viewinline'=>true]);
+        return view('welcome', $viewData);
     }
 }
