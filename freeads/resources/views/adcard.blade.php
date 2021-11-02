@@ -39,7 +39,7 @@
                     <div class="h-100 w-100"><img class="card-img-top" src="{{asset($ads[$i]->url)}}" alt="..."></div>
                 </div>
                 <div class="card-body h-30 p-1 rounded-0 rounded-bottom">
-                    <h5 class="card-title h-50" style="font-size:2vh;">{{ Str::upper(Str::limit($ads[$i]->title, $limit = 25, $end = '...')) }}</h5>
+                    <h5 class="card-title h-50" style="font-size:2vh;">{{ Str::upper(Str::limit($ads[$i]->title, $limit = 20, $end = '...')) }}</h5>
                     <p class="card-text h-50">{{ number_format($ads[$i]->price, 2) }} €</p>
                 </div>
             </a>
