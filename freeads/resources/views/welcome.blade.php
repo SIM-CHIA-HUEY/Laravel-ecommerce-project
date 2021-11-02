@@ -29,7 +29,6 @@
         <div class="row p-md-3">
             @include('filters')
             @include('adcard')
-
             @include('layouts.main')
 
         </div>
