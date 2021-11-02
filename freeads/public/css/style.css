@@ -1,0 +1,51 @@
+.bg-lightblue {
+    background-color: #c8d8e4;
+}
+.border-steelblue {
+    border: 1px solid #2b6777;
+}
+.bg-steelblue {
+    background-color: #2b6777;
+}
+.text-duckblue {
+    color: #52ab98;
+}
+.cardad .btn:hover .card-body {
+    background-color: #2b6777;
+    color:#ffffff;
+}
+.cardad .btn:hover .card {
+    background-color: transparent;
+}
+.cardad img {
+    display: block;
+    height: auto;
+}
+.h-30 {
+    height: 30%;
+}
+.h-40 {
+    height: 40%;
+}
+.h-60 {
+    height: 60%;
+}
+.h-70 {
+    height: 70%;
+}
+.page-item a:hover {
+    background-color: #2b6777;
+    color: #ffffff;
+}
+.page-item .page-link {
+    background-color: #c8d8e4;
+    color: #52ab98;
+    border:1px solid #2b6777;
+}
+.page-item .active {
+    background-color: #2b6777;
+    color: #ffffff;
+}
+.categories .category:hover .btn {
+    text-shadow: 2px 2px 7px;
+}
