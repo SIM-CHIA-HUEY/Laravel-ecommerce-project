@@ -18,11 +18,7 @@
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">
-<<<<<<< HEAD
-            {{ $slot }}
-=======
             {{ $slot ??'' }}
->>>>>>> chia
         </div>
     </body>
 </html>

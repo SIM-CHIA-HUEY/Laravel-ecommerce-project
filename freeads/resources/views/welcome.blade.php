@@ -5,16 +5,15 @@
     <!-- TOP SCREEN : FIXED -->
     <div class="sticky-top">
 
-    <!-- HEADER : Logo, buttons of postAds/search/login or logout-->
-    @include('header')
+        <!-- HEADER : Logo, buttons of postAds/search/login or logout-->
+        @include('header')
 
-    <!-- SEARCHBAR : Looking for... in which location... -->
-    @include('searchbar')
-    <!-- CATEGORIES : Cars & vehicles, For sale, etc. -->
+        <!-- SEARCHBAR : Looking for... in which location... -->
+        @include('searchbar')
+        <!-- CATEGORIES : Cars & vehicles, For sale, etc. -->
         @include('categorybar')
 
     </div>
-<<<<<<< HEAD
     <!-- RESULTS -->
     <div class="container px-md-4 bg-lightblue">
         @isset($categoryList)
@@ -29,12 +28,6 @@
         @endisset
         <div class="row p-md-3">
             @include('filters')
-=======
-
-    <!-- BODY : Results of research (this is a public and private page, no need for protection so it stays here) -->
-    <div class="container px-4 bg-lightblue">
-        <div class="row p-3">
->>>>>>> chia
             @include('adcard')
 
             @include('layouts.main')
