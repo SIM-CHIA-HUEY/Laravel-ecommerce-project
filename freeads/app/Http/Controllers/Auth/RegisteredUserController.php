@@ -20,11 +20,8 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-<<<<<<< HEAD
-=======
         //Redirect::setIntendedUrl('/register'); //to redirect to / page after being authenticated
         // if you want to redirect to previous page, it's Redirect::setIntendedUrl(url()->previous());
->>>>>>> chia
         return view('auth.register');
     }
 
@@ -39,26 +36,16 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-<<<<<<< HEAD
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-=======
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
 
 
             ]);
->>>>>>> chia
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-<<<<<<< HEAD
-=======
             'phone_number' => $request->phone_number,
->>>>>>> chia
             'password' => Hash::make($request->password),
         ]);
 
