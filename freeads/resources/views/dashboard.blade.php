@@ -14,4 +14,12 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+
+    <div class>
+    <a href="/blog" class="btn btn-outline-primary">Show Blog</a>
+    </div>
+
+>>>>>>> chia
 </x-app-layout>

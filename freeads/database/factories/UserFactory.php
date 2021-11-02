@@ -2,12 +2,26 @@
 
 namespace Database\Factories;
 
+<<<<<<< HEAD
+=======
+use App\Models\User;
+>>>>>>> chia
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
     /**
+<<<<<<< HEAD
+=======
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = User::class;
+
+    /**
+>>>>>>> chia
      * Define the model's default state.
      *
      * @return array

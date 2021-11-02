@@ -10,7 +10,11 @@ class Handler extends ExceptionHandler
     /**
      * A list of the exception types that are not reported.
      *
+<<<<<<< HEAD
      * @var string[]
+=======
+     * @var array
+>>>>>>> chia
      */
     protected $dontReport = [
         //
@@ -19,7 +23,11 @@ class Handler extends ExceptionHandler
     /**
      * A list of the inputs that are never flashed for validation exceptions.
      *
+<<<<<<< HEAD
      * @var string[]
+=======
+     * @var array
+>>>>>>> chia
      */
     protected $dontFlash = [
         'current_password',

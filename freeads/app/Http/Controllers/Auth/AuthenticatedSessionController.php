@@ -7,6 +7,10 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+<<<<<<< HEAD
+=======
+use Illuminate\Support\Facades\Redirect;
+>>>>>>> chia
 
 class AuthenticatedSessionController extends Controller
 {
@@ -17,6 +21,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
+<<<<<<< HEAD
+=======
+        Redirect::setIntendedUrl('/'); //to redirect to / page after being authenticated
+>>>>>>> chia
         return view('auth.login');
     }
 
@@ -50,5 +58,9 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+<<<<<<< HEAD
+=======
+        //return redirect()->intended(RouteServiceProvider::HOME); //when logout, go back to /login page
+>>>>>>> chia
     }
 }
