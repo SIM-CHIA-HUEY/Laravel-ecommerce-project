@@ -20,7 +20,8 @@ class CreateAdminUserSeeder extends Seeder
         $user = User::create([
             'name' => 'Gate For Learner',
             'email' => 'admin@gateforlearner.com',
-            'password' => Hash::make('12345678')
+            'password' => Hash::make('12345678'),
+            'phone_number' => '0123456789'
         ]);
 
         $role = Role::create(['name' => 'Admin']);

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ad;
 use Illuminate\Http\Request;
-//use Illuminate\Support\Facades\DB;
-//use Spatie\Permission\Models\Permission;
-//use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AdController extends Controller
 {
