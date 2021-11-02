@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\welcomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,26 @@ use Illuminate\Support\Facades\Route;
 
 //Route::get('/', function () {return view('welcome');});
 
-Route::get('/', [\App\Http\Controllers\welcomeController::class, 'index']);
-Route::get('/category/{category}', [\App\Http\Controllers\welcomeController::class, 'displayCategory']);
+// Classic index
+Route::get('/', [welcomeController::class, 'index']);
+
+// Filter by category
+Route::get('/category/{category}', [welcomeController::class, 'displayCategory']);
+
+// Search bar has been used.
+Route::post('/search', [welcomeController::class, 'search']);
+Route::get('/search', [welcomeController::class, 'index']);
+
+// User posted a new ad.
+Route::get('/postad', [postadController::class, 'index']);
+Route::post('/postad', [postadController::class, 'post']);
+
+// Switch between pages.
+Route::get('/page/{number}', [welcomeController::class, 'displayPage']);
+
+// Filters has been applied.
+Route::post('/filters', [welcomeController::class, 'filters']);
+Route::get('/filters', [welcomeController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
