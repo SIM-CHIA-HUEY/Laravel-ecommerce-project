@@ -25,7 +25,7 @@ class welcomeController extends Controller
         // Update session data.
         session(['ads' => $ads]);
         $data = [
-                'categories' => $this->categories, 
+                'categories' => $this->categories,
                 'ads' => $ads,
                 'page' => $page,
                 'number_of_page' => $this->getNumberOfPage($ads)
