@@ -64,7 +64,7 @@ class postadController extends Controller
                 'mainImage' => 'image|required',
                 'image2' => 'image',
                 'image3' => 'image',
-                'number' => 'required|integer',
+                'number' => 'required',
                 'street' => 'required',
                 'postcode' => 'required',
                 'city' => 'required',

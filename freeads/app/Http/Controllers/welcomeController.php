@@ -60,11 +60,6 @@ class welcomeController extends Controller
         $search = '%'.$request->search.'%';
         $location = $request->location;
 
-        // Validate data received
-        $validated = $request->validate([
-            'search' => 'required'
-        ]);
-
         // Search in the DB for the location & search data.
         if(is_null($location)) {
             $ads = DB::table('ads')

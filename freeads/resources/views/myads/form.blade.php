@@ -20,6 +20,12 @@
     <form method="POST" action="{{url('/myads')}}" enctype="multipart/form-data">
         <!-- Security -->
         @csrf
+        <!-- Image display -->
+        <div>
+            @foreach($pictures as $picture)
+                <img src="{{asset($picture->url)}}" class="img-thumbnail w-10" alt="Image not found">
+            @endforeach
+        </div>
         <!-- User secret input -->
         <input type="hidden" name="userid" value="{{ Auth::user()->id }}">
         <input type="hidden" name="location" value="{{ Auth::user()->location_id }}">
@@ -46,20 +52,20 @@
             <span class="input-group-text">€</span>
         </div>
         <!-- Image upload -->
-        <!-- <div class="input-group m-1">
+        <div class="input-group m-1">
             <input type="file" name="mainImage" class="form-control" id="inputGroupFile1" value="{{old('mainImage')}}">
             <label class="input-group-text" for="inputGroupFile1">Main picture</label>
-        </div> -->
+        </div>
         <!-- Image 2 upload -->
-        <!-- <div class="input-group m-1">
+        <div class="input-group m-1">
             <input type="file" name="image2" class="form-control" id="inputGroupFile2">
             <label class="input-group-text" for="inputGroupFile2">2nd picture</label>
-        </div> -->
+        </div>
         <!-- Image 3 upload -->
-        <!-- <div class="input-group m-1">
+        <div class="input-group m-1">
             <input type="file" name="image3" class="form-control" id="inputGroupFile3">
             <label class="input-group-text" for="inputGroupFile3">3rd picture</label>
-        </div> -->
+        </div>
         <!-- Submit button -->
         <button type="submit" class="mt-2 btn btn-duckblue">Submit</button>
     </form>
