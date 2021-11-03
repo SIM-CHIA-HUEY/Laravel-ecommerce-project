@@ -67,12 +67,6 @@ Route::get('/blog/{blogPost}/edit', [\App\Http\Controllers\BlogPostController::c
 Route::put('/blog/{blogPost}/edit', [\App\Http\Controllers\BlogPostController::class, 'update']); //commits edited post to the database
 Route::delete('/blog/{blogPost}', [\App\Http\Controllers\BlogPostController::class, 'destroy']); //deletes post from the database
 
-
-
-
-require __DIR__.'/auth.php';
-
-
 Route::get('/guser', [TESTCTRL::class, 'showAccueil']); //L'utilisateur m'envoie un get sur la racine donc j'exécute
 Route::post('/guser', [TESTCTRL::class, 'getVariable']); //L'utilisateur m'envoie un post sur la racine donc j'exécute getvariable
 Route::post('/update', [TESTCTRL::class, 'setVariable']);
@@ -81,3 +75,5 @@ Route::get('/adduser', [addCtrl::class, 'show']);
 
 //Route::redirect('/', '/adduser');
 Route::post('/adduser', [addCtrl::class, 'addUser']);
+
+require __DIR__.'/auth.php';
