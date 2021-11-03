@@ -43,7 +43,8 @@ class welcomeController extends Controller
                 ->where('active', '=', '1')
                 ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
                 ->where('main_picture', '=', '1')
-                ->select('ads.*', 'pictures.url')
+                ->join('locations', 'locations.id', '=', 'ads.location_id')
+                ->select('ads.*', 'pictures.url', 'locations.*')
                 ->get();
 
         // Retrieve display data.
@@ -71,7 +72,8 @@ class welcomeController extends Controller
                     ->where('active', '=', '1')
                     ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
                     ->where('main_picture', '=', '1')
-                    ->select('ads.*', 'pictures.url')
+                    ->join('locations', 'locations.id', '=', 'ads.location_id')
+                    ->select('ads.*', 'pictures.url', 'locations.*')
                     ->get();
         } else {
             $ads = DB::table('ads')
@@ -82,7 +84,7 @@ class welcomeController extends Controller
                     ->leftJoin('locations', 'ads.location_id', '=', 'locations.id')
                     ->where('postcode', '=', $location)
                     ->orWhere('city', 'like', $location)
-                    ->select('ads.*', 'pictures.url', 'locations.id')
+                    ->select('ads.*', 'pictures.url', 'locations.*')
                     ->get();
         }
         // Retrieve display data.
@@ -104,6 +106,8 @@ class welcomeController extends Controller
                 ->whereIn('ads.category_id', $ids)
                 ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
                 ->where('main_picture', '=', '1')
+                ->join('locations', 'locations.id', '=', 'ads.location_id')
+                ->select('ads.*', 'pictures.url', 'locations.*')
                 ->get();
         session(['ads' => $ads]);
 

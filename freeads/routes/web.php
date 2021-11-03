@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\welcomeController;
 use App\Http\Controllers\postadController;
+use App\Http\Controllers\myadsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,12 @@ Route::get('/search', [welcomeController::class, 'index']);
 // User posted a new ad.
 Route::get('/postad', [postadController::class, 'index']);
 Route::post('/postad', [postadController::class, 'post']);
+// User edit his own ads
+Route::get('/myads', [myadsController::class, 'index']);
+Route::get('/myads/{id}', [myadsController::class, 'getAd']);
+Route::post('/myads', [myadsController::class, 'updateAd']);
+Route::get('/myads/disable/{id}', [myadsController::class, 'disable']);
+Route::get('/myads/enable/{id}', [myadsController::class, 'enable']);
 
 // Switch between pages.
 Route::get('/page/{number}', [welcomeController::class, 'displayPage']);

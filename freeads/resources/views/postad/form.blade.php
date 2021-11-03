@@ -56,6 +56,21 @@
             <input type="file" name="image3" class="form-control" id="inputGroupFile3">
             <label class="input-group-text" for="inputGroupFile3">3rd picture</label>
         </div>
+        <!-- Adress box -->
+        <div class="input-group m-1">
+            <label class="input-group-text" for="inputGroupSelectAddress">Address</label>
+            <select name="address" class="form-select" id="inputGroupSelectAddress">
+                <option value="myaddress" selected>My address [{{$user_address->number}} {{$user_address->street}}, {{$user_address->postcode}} {{$user_address->city}} ({{$user_address->country}})]</option>
+                <option value="newaddress">new address [Please fill the form below]</option>
+            </select>
+        </div>
+        <div class="input-group m-1">
+            <input type="number" name="number" class="form-control m-1" placeholder="Number" value="{{old('number')}}">
+            <input type="text" name="street" class="form-control m-1" placeholder="Street" value="{{old('street')}}">
+            <input type="number" name="postcode" class="form-control m-1" placeholder="Postcode" value="{{old('postcode')}}">
+            <input type="text" name="city" class="form-control m-1" placeholder="City" value="{{old('street')}}">
+            <input type="text" name="country" class="form-control m-1" placeholder="Country" value="{{old('country')}}">
+        </div>
         <!-- Submit button -->
         <button type="submit" class="mt-2 btn btn-duckblue">Submit</button>
     </form>

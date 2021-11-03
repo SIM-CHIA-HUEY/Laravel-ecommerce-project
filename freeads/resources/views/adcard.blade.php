@@ -16,7 +16,7 @@
                     <div class="d-flex flex-column col-sm-7 col-5 col-lg-9">
                         <div class="fw-bold">{{ Str::limit($ads[$i]->title, $limit=50, $end = '...') }}</div>
                         <!-- TODO : Location to add -->
-                        <div></div>
+                        <div style="font-size:xx-small">{{$ads[$i]->number}} {{$ads[$i]->street}}, {{$ads[$i]->postcode}} {{$ads[$i]->city}} ({{$ads[$i]->country}})</div>
                         <div><small>{{ Str::limit($ads[$i]->description, $limit = 256, $end = '...') }}</small></div>
                         <div class="fw-bold">{{ number_format($ads[$i]->price, 2) }} €</div>
                     </div>

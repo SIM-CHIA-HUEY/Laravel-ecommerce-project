@@ -7,6 +7,8 @@ use App\Models\Ad;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Location;
+use Illuminate\Support\Facades\Auth;
 
 class postadController extends Controller
 {
@@ -17,8 +19,12 @@ class postadController extends Controller
         $this->categories = Category::all();
     }
     public function index() {
+        $userAddress = DB::table('locations')
+                        ->where('id', '=', Auth::user()->location_id)
+                        ->first();
         return view('postad.postad', [
-            'categories' => $this->categories
+            'categories' => $this->categories,
+            'user_address' => $userAddress
         ]);
     }
 
@@ -30,18 +36,53 @@ class postadController extends Controller
         $category_id = $request->category;
         $price = $request->price;
         $userID = $request->userid;
-        $locationID = $request->location;
+        $address = $request->address;
+        $locationID = $request->location;       // Default location
+        $country = $request->country;
+        $city = $request->city;
+        $postcode = $request->postcode;
+        $street = $request->street;
+        $number = $request->number;
         
         // Validate data
-        $validated = $request->validate([
-            'title' => 'required|max:50',
-            'description' => 'required',
-            'price' => 'required',
-            'category' => 'required',
-            'mainImage' => 'image|required',
-            'image2' => 'image',
-            'image3' => 'image'
-        ]);
+        if($address == 'myaddress') {
+            $validated = $request->validate([
+                'title' => 'required|max:50',
+                'description' => 'required',
+                'price' => 'required',
+                'category' => 'required',
+                'mainImage' => 'image|required',
+                'image2' => 'image',
+                'image3' => 'image'
+            ]);
+        } else {
+            $validated = $request->validate([
+                'title' => 'required|max:50',
+                'description' => 'required',
+                'price' => 'required',
+                'category' => 'required',
+                'mainImage' => 'image|required',
+                'image2' => 'image',
+                'image3' => 'image',
+                'number' => 'required|integer',
+                'street' => 'required',
+                'postcode' => 'required',
+                'city' => 'required',
+                'country' => 'required'
+            ]);
+
+            // Update location table
+            DB::table('locations')->insert([
+                'country' => $country,
+                'city' => $city,
+                'postcode' => $postcode,
+                'street' => $street,
+                'number' => $number
+            ]);
+            // Get current location id.
+            $lastEntry = DB::table('locations')->orderBy('id', 'desc')->first();
+            $locationID = $lastEntry->id;
+        }
 
         // Upload main file.
         $path = $request->file('mainImage')->storePublicly('public/images');
@@ -94,11 +135,15 @@ class postadController extends Controller
                 'url' => $path3
             ]);
         }
+        $userAddress = DB::table('locations')
+                        ->where('id', '=', Auth::user()->location_id)
+                        ->first();
 
         // Return the view.
         return view('postad.postad', [
             'categories' => $this->categories,
-            'success' => 'true'
+            'success' => 'true',
+            'user_address' => $userAddress
         ]);
     }
 }
