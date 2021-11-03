@@ -10,6 +10,7 @@
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{asset('./css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('./css/gerald.css')}}">
     <title>Free ads !</title>
 </head>
 <body

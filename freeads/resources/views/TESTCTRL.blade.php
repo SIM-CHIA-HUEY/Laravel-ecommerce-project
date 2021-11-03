@@ -19,7 +19,7 @@
                     <!-- <p style="text-align:center">    Indicate an user id : <input type="number" class="formu" id="selid" name="selid" min="1" style="width:50px" value="@isset($request){{$request}}@endisset" /> -->
                     
                     </p>  
-                    <div class="centrerlebordel">
+                    <div class="centrerlebordel mb-2">
                         List of users : 
                     <select name="all" style="text-align:center,width:300px" class="formu">
                         @foreach($users as $key => $data)
