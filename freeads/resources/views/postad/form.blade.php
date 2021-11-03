@@ -1,5 +1,6 @@
 <div class="p-md-5">
     <h5 class="mb-3">Post a new Ad</h5>
+    @auth
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -19,6 +20,9 @@
     <form method="POST" action="postad" enctype="multipart/form-data">
         <!-- Security -->
         @csrf
+        <!-- User secret input -->
+        <input type="hidden" name="userid" value="{{ Auth::user()->id }}">
+        <input type="hidden" name="location" value="{{ Auth::user()->location_id }}">
         <!-- Title input -->
         <input type="text" name="title" class="form-control m-1" placeholder="Ad title" value="{{old('title')}}">
         <!-- Description input -->
@@ -55,4 +59,11 @@
         <!-- Submit button -->
         <button type="submit" class="mt-2 btn btn-duckblue">Submit</button>
     </form>
+    @else
+        <div class="alert alert-danger">
+            <ul>
+                You must be registered to post a new ad.
+            </ul>
+        </div>
+    @endauth
 </div>

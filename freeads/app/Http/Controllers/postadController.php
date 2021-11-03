@@ -29,6 +29,8 @@ class postadController extends Controller
         $description = $request->description;
         $category_id = $request->category;
         $price = $request->price;
+        $userID = $request->userid;
+        $locationID = $request->location;
         
         // Validate data
         $validated = $request->validate([
@@ -65,8 +67,8 @@ class postadController extends Controller
             'description' => $description,
             'category_id' => $category_id,
             'price' => $price,
-            'users_id' => '1',
-            'location_id' => '1',
+            'users_id' => $userID,
+            'location_id' => $locationID,
             'active' => '1'
         ]);
         // Get current ad's ID.

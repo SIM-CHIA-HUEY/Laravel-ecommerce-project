@@ -30,7 +30,6 @@
             @include('filters')
             @include('adcard')
             @include('layouts.main')
-
         </div>
         @include('navlink')
     </div>
