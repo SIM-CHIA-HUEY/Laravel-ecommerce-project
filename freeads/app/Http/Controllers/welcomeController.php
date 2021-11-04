@@ -75,11 +75,10 @@ class welcomeController extends Controller
             $ads = DB::table('ads')
                     ->where('ads.title', 'like', $search)
                     ->where('ads.active', '=', '1')
-                    ->leftJoin('pictures', 'pictures.ads_id', '=', 'ads.id')
+                    ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
                     ->where('pictures.main_picture', '=', '1')
-                    ->leftJoin('locations', 'ads.location_id', '=', 'locations.id')
-                    ->where('locations.postcode', 'like', $location)
-                    ->orWhere('locations.city', 'like', $location)
+                    ->join('locations', 'locations.id', '=', 'ads.location_id')
+                    ->where('locations.city', 'like', $location)
                     ->select('ads.*', 'pictures.url', 'locations.*')
                     ->get();
         }
