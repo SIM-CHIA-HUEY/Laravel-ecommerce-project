@@ -25,7 +25,7 @@ class welcomeController extends Controller
         // Update session data.
         session(['ads' => $ads]);
         $data = [
-                'categories' => $this->categories, 
+                'categories' => $this->categories,
                 'ads' => $ads,
                 'page' => $page,
                 'number_of_page' => $this->getNumberOfPage($ads)
@@ -43,7 +43,8 @@ class welcomeController extends Controller
                 ->where('active', '=', '1')
                 ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
                 ->where('main_picture', '=', '1')
-                ->select('ads.*', 'pictures.url')
+                ->join('locations', 'locations.id', '=', 'ads.location_id')
+                ->select('ads.*', 'pictures.url', 'locations.*')
                 ->get();
 
         // Retrieve display data.
@@ -59,11 +60,6 @@ class welcomeController extends Controller
         $search = '%'.$request->search.'%';
         $location = $request->location;
 
-        // Validate data received
-        $validated = $request->validate([
-            'search' => 'required'
-        ]);
-
         // Search in the DB for the location & search data.
         if(is_null($location)) {
             $ads = DB::table('ads')
@@ -71,7 +67,8 @@ class welcomeController extends Controller
                     ->where('active', '=', '1')
                     ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
                     ->where('main_picture', '=', '1')
-                    ->select('ads.*', 'pictures.url')
+                    ->join('locations', 'locations.id', '=', 'ads.location_id')
+                    ->select('ads.*', 'pictures.url', 'locations.*')
                     ->get();
         } else {
             $ads = DB::table('ads')
@@ -82,7 +79,7 @@ class welcomeController extends Controller
                     ->leftJoin('locations', 'ads.location_id', '=', 'locations.id')
                     ->where('postcode', '=', $location)
                     ->orWhere('city', 'like', $location)
-                    ->select('ads.*', 'pictures.url', 'locations.id')
+                    ->select('ads.*', 'pictures.url', 'locations.*')
                     ->get();
         }
         // Retrieve display data.
@@ -104,6 +101,8 @@ class welcomeController extends Controller
                 ->whereIn('ads.category_id', $ids)
                 ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
                 ->where('main_picture', '=', '1')
+                ->join('locations', 'locations.id', '=', 'ads.location_id')
+                ->select('ads.*', 'pictures.url', 'locations.*')
                 ->get();
         session(['ads' => $ads]);
 

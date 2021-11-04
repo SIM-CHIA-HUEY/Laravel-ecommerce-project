@@ -50,6 +50,9 @@
 .h-70 {
     height: 70%;
 }
+.w-10 {
+    width: 10%;
+}
 .page-item a:hover {
     background-color: #2b6777;
     color: #ffffff;

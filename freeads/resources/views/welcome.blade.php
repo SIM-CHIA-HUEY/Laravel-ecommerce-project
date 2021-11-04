@@ -1,11 +1,11 @@
 @include('head')
     <!-- TOP SCREEN : FIXED -->
     <div class="sticky-top">
-        <!-- HEADER -->
+        <!-- HEADER : Logo, buttons of postAds/search/login or logout-->
         @include('header')
-        <!-- SEARCHBAR -->
+        <!-- SEARCHBAR : Looking for... in which location... -->
         @include('searchbar')
-        <!-- CATEGORIES -->
+        <!-- CATEGORIES : Cars & vehicles, For sale, etc. -->
         @include('categorybar')
     </div>
     <!-- RESULTS -->
@@ -26,4 +26,5 @@
         </div>
         @include('navlink')
     </div>
+<!-- FOOTER -->
 @include('foot')

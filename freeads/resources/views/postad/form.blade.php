@@ -1,5 +1,6 @@
 <div class="p-md-5">
     <h5 class="mb-3">Post a new Ad</h5>
+    @auth
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -19,6 +20,9 @@
     <form method="POST" action="postad" enctype="multipart/form-data">
         <!-- Security -->
         @csrf
+        <!-- User secret input -->
+        <input type="hidden" name="userid" value="{{ Auth::user()->id }}">
+        <input type="hidden" name="location" value="{{ Auth::user()->location_id }}">
         <!-- Title input -->
         <input type="text" name="title" class="form-control m-1" placeholder="Ad title" value="{{old('title')}}">
         <!-- Description input -->
@@ -52,7 +56,29 @@
             <input type="file" name="image3" class="form-control" id="inputGroupFile3">
             <label class="input-group-text" for="inputGroupFile3">3rd picture</label>
         </div>
+        <!-- Adress box -->
+        <div class="input-group m-1">
+            <label class="input-group-text" for="inputGroupSelectAddress">Address</label>
+            <select name="address" class="form-select" id="inputGroupSelectAddress">
+                <option value="myaddress" selected>My address [{{$user_address->number}} {{$user_address->street}}, {{$user_address->postcode}} {{$user_address->city}} ({{$user_address->country}})]</option>
+                <option value="newaddress">new address [Please fill the form below]</option>
+            </select>
+        </div>
+        <div class="input-group m-1">
+            <input type="number" name="number" class="form-control m-1" placeholder="Number" value="{{old('number')}}">
+            <input type="text" name="street" class="form-control m-1" placeholder="Street" value="{{old('street')}}">
+            <input type="number" name="postcode" class="form-control m-1" placeholder="Postcode" value="{{old('postcode')}}">
+            <input type="text" name="city" class="form-control m-1" placeholder="City" value="{{old('street')}}">
+            <input type="text" name="country" class="form-control m-1" placeholder="Country" value="{{old('country')}}">
+        </div>
         <!-- Submit button -->
         <button type="submit" class="mt-2 btn btn-duckblue">Submit</button>
     </form>
+    @else
+        <div class="alert alert-danger">
+            <ul>
+                You must be registered to post a new ad.
+            </ul>
+        </div>
+    @endauth
 </div>

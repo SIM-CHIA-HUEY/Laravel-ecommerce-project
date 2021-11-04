@@ -1,0 +1,31 @@
+.formu{
+    border-top:0;
+    border-right:0;
+    border-left:0;
+    border-bottom:2px solid black;
+    vertical-align: 3px;
+    margin-left: 16px ;
+    background: rgb(108, 148, 153) ;
+    }
+
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+select{
+    display: flex;
+    justify-content: center;
+}
+
+.centrerlebordel{
+    display: flex;
+    justify-content: center;
+}
+
+label
+{
+	display: block;
+	width: 150px;
+	float: left;
+    
+}
