@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model
 {
     use HasFactory;
+
+    public function ads(){
+        return $this->hasMany(Ad::class,'id','name');
+    }
 }

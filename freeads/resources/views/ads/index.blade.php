@@ -25,16 +25,20 @@
 
     <table class="table table-bordered">
         <tr>
-            <th>No</th>
             <th>Name</th>
-            <th>Details</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Image text</th>
+            <th>Image</th>
             <th width="280px">Action</th>
         </tr>
         @foreach ($ads as $ad)
             <tr>
-                <td>{{ ++$i }}</td>
                 <td>{{ $ad->title }}</td>
                 <td>{{ $ad->description }}</td>
+                <td>${{ $ad->price }}</td>
+                <td>{{ $ad->image }}</td>
+                <td><img src="/images/{{ $ad->image }}" width="100px"></td>
                 <td>
                     <form action="{{ route('ads.destroy',$ad->id) }}" method="POST">
                         <a class="btn btn-info" href="{{ route('ads.show',$ad->id) }}">Show</a>
@@ -55,8 +59,7 @@
     </table>
 
 
-    {!! $ads->links() !!}
 
 
-    <p class="text-center text-primary"><small>Tutorial by GateForLearner.com</small></p>
+
 @endsection

@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Ad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class AdController extends Controller
 {
@@ -56,13 +54,23 @@ class AdController extends Controller
             'title' => 'required',
             'description' => 'required',
             'price' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required',
             'location_id' => 'required',
             'user_id' => 'required',
             'is_active' => 'required'
         ]);
 
-        Ad::create($request->all());
+        $input = $request->all();
+
+        if ($image = $request->file('image')) {
+            $destinationPath = 'images/';
+            $profileImage = $image->getClientOriginalName();
+            $image->move($destinationPath, $profileImage);
+            $input['image'] = "$profileImage";
+        }
+
+        Ad::create($input);
 
         return redirect()->route('ads.index')
             ->with('success','Ad created successfully.');
@@ -87,7 +95,9 @@ class AdController extends Controller
      */
     public function edit(Ad $ad)
     {
-        return view('ads.edit',compact('ad'));
+        $author = DB::table('users')->where('id', '=', $ad->users_id)->first();
+        
+        return view('ads.edit',['author' => $author, 'ad' => $ad]);
     }
 
     /**
@@ -109,6 +119,19 @@ class AdController extends Controller
             'is_active' => 'required'
         ]);
 
+        //problem is image name stored in : IMAGES folder and database ads->image are not the same !
+
+        $input = $request->all();
+
+        if ($image = $request->file('image')) {
+            $destinationPath = 'images/';
+            $profileImage = $image->getClientOriginalName();
+            $image->move($destinationPath, $profileImage);
+            $input['image'] = "$profileImage";
+        }else{
+            unset($input['image']);
+        }
+
         $ad->update($request->all());
 
         return redirect()->route('ads.index')
@@ -127,4 +150,7 @@ class AdController extends Controller
         return redirect()->route('ads.index')
             ->with('success','Ad deleted successfully');
     }
+
+
+
 }

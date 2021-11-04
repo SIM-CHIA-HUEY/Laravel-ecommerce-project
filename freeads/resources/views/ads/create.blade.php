@@ -1,3 +1,10 @@
+<?php
+use App\Models\Ad;
+use App\Models\Category;
+use App\Models\User;
+?>
+
+
 @extends('layouts.main')
 
 
@@ -6,9 +13,6 @@
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
                 <h2>Add New Ad</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('ads.index') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -26,7 +30,7 @@
     @endif
 
 
-    <form action="{{ route('ads.store') }}" method="POST">
+    <form action="{{ route('ads.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
 
@@ -34,13 +38,87 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Title:</strong>
-                    <input type="text" name="title" class="form-control" placeholder="Name">
+                    <input type="text" name="title" class="form-control" placeholder="Title">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Description:</strong>
                     <textarea class="form-control" style="height:150px" name="description" placeholder="Description"></textarea>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Price:</strong>
+                    <input type="text" name="price" class="form-control" placeholder="Price">
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Image:</strong>
+                    <input type="file" name="image" class="form-control" placeholder="image">
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Category:</strong>
+
+                    <select name="category_id" class="form-select form-select-md mb-1" aria-label="" required>
+                        <option selected="selected">
+                            Select category
+                        </option>
+
+                        <?php
+                    $categories = Category::all();
+                    foreach ($categories as $category){ ?>
+                    <option value=" <?php echo $category->id;?>"> <?php echo $category->name;?> </option>
+                    <?php
+                    }
+                    ?>
+                    </select>
+
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Location:</strong>
+                    <input type="text" name="location_id" class="form-control" placeholder="Choose category">
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Owner:</strong>
+                    <select name="user_id" class="form-select form-select-md" aria-label="" required>
+                        <option selected="selected">
+                            Select user
+                        </option>
+                        <?php
+                        $users = User::all();
+                        foreach ($users as $user){ ?>
+                        <option value=" <?php echo $user->id;?>"> <?php echo $user->name;?> </option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Set public:</strong>
+                    <div>
+                        <input type="radio" id="is_active" name="is_active" value="1"
+                               checked>
+                        <label for="is_active">Yes</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="is_active" name="is_active" value="0">
+                        <label for="is_active">No</label>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
