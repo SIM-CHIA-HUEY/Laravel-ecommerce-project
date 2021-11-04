@@ -6,7 +6,7 @@
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingAd{{ $ad->id}}">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAd{{ $ad->id}}" aria-expanded="true" aria-controls="collapseAd{{ $ad->id}}">
-                    <b>{{ $ad->title}}</b> : {{ number_format($ad->price, 2) }} €
+                    @if($ad->active != 1) <span class="text-warning me-1">[Disabled]</span> @endif <b>{{ $ad->title}}</b> : {{ number_format($ad->price, 2) }} €
                 </button>
             </h2>
             <div id="collapseAd{{ $ad->id}}" class="accordion-collapse collapse" aria-labelledby="headingAd{{ $ad->id}}" data-bs-parent="#AdsAccordion">

@@ -13,31 +13,21 @@
             </a>
         </div>
         @auth
-        <div class="d-flex flex-column">
-            <a href="/ads" class="btn btn-md btn-outline-light mx-1 border-0">
-                <div class="text-center"><i class="bi bi-hdd-network"></i></div>
-                <div class="text-center">Admin</div>
+        <div class="dropdown">
+            <a class="btn btn-outline-light border-0 dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="text-center"><i class="bi bi-hdd-network"></i></div>
+                {{Auth::user()->name}}
             </a>
-        </div>
-        <div class="d-flex flex-column">
-            <a href="/postad" class="btn btn-md btn-outline-light mx-1 border-0">
-                <div class="text-center"><i class="bi bi-pin-angle"></i></div>
-                <div class="text-center">Post ad</div>
-            </a>
-        </div>
-        <div class="d-flex flex-column">
-            <a href="/myads" class="btn btn-md btn-outline-light mx-1 border-0">
-                <div class="text-center"><i class="bi bi-pencil-square"></i></div>
-                <div class="text-center">My ads</div>
-            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="/postad">Post ad</a></li>
+                <li><a class="dropdown-item" href="/myads">My ads</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/profile">My profile</a></li>
+                <li><a class="dropdown-item" href="/guser">Admin</a></li>
+            </ul>
         </div>
         @endauth
-        <!-- <div class="d-flex flex-column">
-            <a href="#" class="btn btn-md btn-outline-light mx-1 border-0">
-                <div class="text-center"><i class="bi bi-binoculars"></i></div>
-                <div class="text-center">Search</div>
-            </a>
-        </div> -->
         <div class="d-flex flex-column">
             @auth
                 <form method="POST" action="{{ route('logout') }}">

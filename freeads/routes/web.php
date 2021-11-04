@@ -6,6 +6,7 @@ use App\Http\Controllers\postadController;
 use App\Http\Controllers\myadsController;
 use App\Http\Controllers\TESTCTRL; //attention à bien l'ajouter
 use App\Http\Controllers\addCtrl; //attention à bien l'ajouter
+use App\Http\Controllers\profileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,12 +34,16 @@ Route::get('/search', [welcomeController::class, 'index']);
 // User posted a new ad.
 Route::get('/postad', [postadController::class, 'index']);
 Route::post('/postad', [postadController::class, 'post']);
+
 // User edit his own ads
 Route::get('/myads', [myadsController::class, 'index']);
 Route::get('/myads/{id}', [myadsController::class, 'getAd']);
 Route::post('/myads', [myadsController::class, 'updateAd']);
 Route::get('/myads/disable/{id}', [myadsController::class, 'disable']);
 Route::get('/myads/enable/{id}', [myadsController::class, 'enable']);
+
+// User view & edit his profile
+Route::get('/profile', [profileController::class, 'index']);
 
 // Switch between pages.
 Route::get('/page/{number}', [welcomeController::class, 'displayPage']);

@@ -96,7 +96,7 @@
                             <h3 style="margin-left:30px">Modify user number : "{{old('id')}}" </h3>
                             </br>
                                <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l" >
-                                   <input type="hidden" value="{{old('id')}}" name="hidid"> </input>
+                                   <input type="hidden" value="{{old('hidid')}}" name="hidid"> </input>
                                    <p style="margin-left:30px"><label for="name">Name : </label><input type="text" class="formu" id="name" name="name" value=" {{old('name')}}" /></p>
                                    <p style="margin-left:30px"><label for="name">Email : </label><input type="text" class="formu" id="email" name="email" value=" {{old('email')}}" /></p>
                                    <p style="margin-left:30px"><label for="name">Password : </label><input type="text" class="formu" id="pswd" name="pswd" value=" {{old('pswd')}}"/></p>
@@ -107,7 +107,7 @@
                                    <p style="margin-left:30px"><label for="name">Phone : </label><input type="text" class="formu" id="phone" name="phone" value=" {{old('phone')}}"/></p>
                                    <p style="margin-left:30px"><label for="name">Active : </label><input type="text" class="formu" id="active" name="active"  value=" {{old('active')}}" /></p>
                                    <p style="margin-left:30px"><label for="name">Admin : </label><input type="text" class="formu" id="admin" name="admin" value=" {{old('admin')}}" /></p>
-                                   <p style="margin-left:30px"><label for="name">Location id : </label><input type="text" class="formu" id="location" name="location" value=" {{old('location_id')}}" /></p>
+                                   <p style="margin-left:30px"><label for="name">Location id : </label><input type="text" class="formu" id="location" name="location" value=" {{old('location')}}" /></p>
                                    <p style="margin-left:30px"><label for="name">Country : </label><input type="text" class="formu" id="country" name="country"  value=" {{old('country')}}" /></p>
                                     <p style="margin-left:30px"><label for="name">City : </label><input type="text" class="formu" id="city" name="city" value=" {{old('city')}}" /></p>
                                     <p style="margin-left:30px"><label for="name">Postcode: </label><input type="text" class="formu" id="postcode" name="postcode"  value=" {{old('postcode')}}" /></p>

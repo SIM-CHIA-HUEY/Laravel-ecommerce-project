@@ -21,10 +21,8 @@
         </div>
         @endisset
         <div class="row p-md-3">
-            @include('filters')
-            @include('adcard')
+            @include('profile.form')
         </div>
-        @include('navlink')
     </div>
 <!-- FOOTER -->
 @include('foot')
