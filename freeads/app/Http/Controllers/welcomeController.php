@@ -58,29 +58,28 @@ class welcomeController extends Controller
     }
     public function search(Request $request) {
         $search = '%'.$request->search.'%';
-        var_dump($search);
         $location = $request->location;
-        $location = '%'.$location.'%';
 
         // Search in the DB for the location & search data.
         if(is_null($location)) {
             $ads = DB::table('ads')
-                    ->where('title', 'like', $search)
-                    ->where('active', '=', '1')
+                    ->where('ads.title', 'like', $search)
+                    ->where('ads.active', '=', '1')
                     ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
-                    ->where('main_picture', '=', '1')
+                    ->where('pictures.main_picture', '=', '1')
                     ->join('locations', 'locations.id', '=', 'ads.location_id')
                     ->select('ads.*', 'pictures.url', 'locations.*')
                     ->get();
         } else {
+            $location = '%'.$location.'%';
             $ads = DB::table('ads')
-                    ->where('title', 'like', $search)
-                    ->where('active', '=', '1')
-                    ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
-                    ->where('main_picture', '=', '1')
+                    ->where('ads.title', 'like', $search)
+                    ->where('ads.active', '=', '1')
+                    ->leftJoin('pictures', 'pictures.ads_id', '=', 'ads.id')
+                    ->where('pictures.main_picture', '=', '1')
                     ->leftJoin('locations', 'ads.location_id', '=', 'locations.id')
-                    ->where('postcode', 'like', $location)
-                    ->orWhere('city', 'like', $location)
+                    ->where('locations.postcode', 'like', $location)
+                    ->orWhere('locations.city', 'like', $location)
                     ->select('ads.*', 'pictures.url', 'locations.*')
                     ->get();
         }

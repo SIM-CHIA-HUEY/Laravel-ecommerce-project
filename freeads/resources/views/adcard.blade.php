@@ -18,7 +18,7 @@
                         <!-- TODO : Location to add -->
                         <div style="font-size:xx-small">{{$ads[$i]->number}} {{$ads[$i]->street}}, {{$ads[$i]->postcode}} {{$ads[$i]->city}} ({{$ads[$i]->country}})</div>
                         <div><small>{{ Str::limit($ads[$i]->description, $limit = 256, $end = '...') }}</small></div>
-                        <div class="fw-bold">{{ number_format($ads[$i]->price, 2) }} €</div>
+                        <div class="fw-bold">{{ number_format($ads[$i]->price, 2) }} $</div>
                     </div>
                     <!-- Like box -->
                     <div class="col-2 col-sm-1">
@@ -40,7 +40,7 @@
                 </div>
                 <div class="card-body h-30 p-1 rounded-0 rounded-bottom">
                     <h5 class="card-title h-50" style="font-size:2vh;">{{ Str::upper(Str::limit($ads[$i]->title, $limit = 20, $end = '...')) }}</h5>
-                    <p class="card-text h-50">{{ number_format($ads[$i]->price, 2) }} €</p>
+                    <p class="card-text h-50">{{ number_format($ads[$i]->price, 2) }} $</p>
                 </div>
             </a>
         </div>
