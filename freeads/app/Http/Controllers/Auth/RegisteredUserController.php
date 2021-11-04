@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Models\Location;
+use Illuminate\Support\Facades\DB;
+use DateTime;
 
 class RegisteredUserController extends Controller
 {
@@ -41,12 +44,18 @@ class RegisteredUserController extends Controller
 
 
             ]);
-
+        DB::table('locations')->insert([
+            'country' => 'France',
+            'created_at' => date('Y-m-d'),
+            'updated_at' => date('Y-m-d')
+        ]);
+        $location = DB::table('locations')->orderBy('id', 'desc')->first();
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'phone_number' => $request->phone_number,
+            'phone_number' => $request->phone,
             'password' => Hash::make($request->password),
+            'location_id' => $location->id
         ]);
 
         event(new Registered($user));
