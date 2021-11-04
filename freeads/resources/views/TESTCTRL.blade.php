@@ -119,6 +119,7 @@
                                </div>
                             @endisset  
                         </form>
+                        <a style="margin-left:30px" href="{{ url('/ads')}}" class="button is-primary">Go to ads </a>
                 </article>
             </section>
 @include('foot')
