@@ -24,7 +24,7 @@
                 <li><a class="dropdown-item" href="/myads">My ads</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/profile">My profile</a></li>
-                <li><a class="dropdown-item" href="/guser">Admin</a></li>
+                <li><a class="dropdown-item" href="/ads">Admin</a></li>
             </ul>
         </div>
         @endauth
