@@ -19,6 +19,9 @@ class postadController extends Controller
         $this->categories = Category::all();
     }
     public function index() {
+        if(!isset(Auth::user()->id)) {
+            return redirect('/');
+        }
         $userAddress = DB::table('locations')
                         ->where('id', '=', Auth::user()->location_id)
                         ->first();
@@ -30,6 +33,9 @@ class postadController extends Controller
 
     // An ad has been posted by the user.
     public function post(Request $request) {
+        if(!isset(Auth::user()->id)) {
+            return redirect('/');
+        }
         // Retrieve data
         $title = $request->title;
         $description = $request->description;
