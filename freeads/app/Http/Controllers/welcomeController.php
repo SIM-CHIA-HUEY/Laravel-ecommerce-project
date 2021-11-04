@@ -58,7 +58,9 @@ class welcomeController extends Controller
     }
     public function search(Request $request) {
         $search = '%'.$request->search.'%';
+        var_dump($search);
         $location = $request->location;
+        $location = '%'.$location.'%';
 
         // Search in the DB for the location & search data.
         if(is_null($location)) {
@@ -77,7 +79,7 @@ class welcomeController extends Controller
                     ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
                     ->where('main_picture', '=', '1')
                     ->leftJoin('locations', 'ads.location_id', '=', 'locations.id')
-                    ->where('postcode', '=', $location)
+                    ->where('postcode', 'like', $location)
                     ->orWhere('city', 'like', $location)
                     ->select('ads.*', 'pictures.url', 'locations.*')
                     ->get();

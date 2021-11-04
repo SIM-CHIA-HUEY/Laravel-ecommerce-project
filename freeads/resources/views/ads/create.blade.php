@@ -91,7 +91,7 @@ use App\Models\User;
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Owner:</strong>
-                    <select name="user_id" class="form-select form-select-md" aria-label="" required>
+                    <select name="users_id" class="form-select form-select-md" aria-label="" required>
                         <option selected="selected">
                             Select user
                         </option>
@@ -110,14 +110,14 @@ use App\Models\User;
                 <div class="form-group">
                     <strong>Set public:</strong>
                     <div>
-                        <input type="radio" id="is_active" name="is_active" value="1"
+                        <input type="radio" id="active" name="active" value="1"
                                checked>
-                        <label for="is_active">Yes</label>
+                        <label for="active">Yes</label>
                     </div>
 
                     <div>
-                        <input type="radio" id="is_active" name="is_active" value="0">
-                        <label for="is_active">No</label>
+                        <input type="radio" id="active" name="active" value="0">
+                        <label for="active">No</label>
                     </div>
                 </div>
             </div>

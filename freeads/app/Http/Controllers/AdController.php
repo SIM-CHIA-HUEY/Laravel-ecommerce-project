@@ -57,8 +57,8 @@ class AdController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required',
             'location_id' => 'required',
-            'user_id' => 'required',
-            'is_active' => 'required'
+            'users_id' => 'required',
+            'active' => 'required'
         ]);
 
         $input = $request->all();
@@ -84,7 +84,10 @@ class AdController extends Controller
      */
     public function show(Ad $ad)
     {
-        return view('ads.show',compact('ad'));
+        $author = DB::table('users')->where('id', '=', $ad->users_id)->first();
+        $category = DB::table('categories')->where('id', '=', $ad->category_id)->first();
+        
+        return view('ads.show',['author' => $author, 'ad' => $ad, 'category' => $category]);
     }
 
     /**
@@ -115,8 +118,8 @@ class AdController extends Controller
             'price' => 'required',
             'category_id' => 'required',
             'location_id' => 'required',
-            'user_id' => 'required',
-            'is_active' => 'required'
+            'users_id' => 'required',
+            'active' => 'required'
         ]);
 
         //problem is image name stored in : IMAGES folder and database ads->image are not the same !

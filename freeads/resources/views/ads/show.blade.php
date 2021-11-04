@@ -47,7 +47,7 @@ use App\Models\User;
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Category:</strong>
-                {!! Category::find($ad->category_id)->name  !!}
+                {{$category->name}}
 
             </div>
         </div>
@@ -60,13 +60,13 @@ use App\Models\User;
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Ad's owner:</strong>
-                {!! User::find($ad->user_id)->name  !!}
+                {{$author->name}}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Visibility:</strong>
-                {{ $ad->is_active }}
+                {{ $ad->active }}
             </div>
         </div>
     </div>

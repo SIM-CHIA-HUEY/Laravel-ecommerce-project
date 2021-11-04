@@ -49,7 +49,7 @@ class postadController extends Controller
             $validated = $request->validate([
                 'title' => 'required|max:50',
                 'description' => 'required',
-                'price' => 'required',
+                'price' => 'required|numeric|between:0,999999999999999999.99',
                 'category' => 'required',
                 'mainImage' => 'image|required',
                 'image2' => 'image',
@@ -59,7 +59,7 @@ class postadController extends Controller
             $validated = $request->validate([
                 'title' => 'required|max:50',
                 'description' => 'required',
-                'price' => 'required',
+                'price' => 'required|numeric|between:0,999999999999999999.99',
                 'category' => 'required',
                 'mainImage' => 'image|required',
                 'image2' => 'image',

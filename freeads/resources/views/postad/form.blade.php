@@ -38,8 +38,8 @@
         </div>
         <!-- Price input -->
         <div class="input-group m-1">
-            <input type="number" name="price" class="form-control" placeholder="Price" value="{{old('price')}}">
-            <span class="input-group-text">€</span>
+            <input type="number" step="any" min="0" name="price" class="form-control" placeholder="Price" value="{{old('price')}}">
+            <span class="input-group-text">$</span>
         </div>
         <!-- Image upload -->
         <div class="input-group m-1">

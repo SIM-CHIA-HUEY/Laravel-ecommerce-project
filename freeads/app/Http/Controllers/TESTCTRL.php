@@ -80,7 +80,7 @@ class TESTCTRL extends Controller
      // echo "test entree ";  
      // var_dump($request->hidid);
     //if($request->has('modif2'))     
-    if(isset($request->name) && !empty($request->name))
+    if($request->submit == 'validation')
     {   
         if(!empty($request->hidid)) //qd le bouton confirm select est cliqué
         {

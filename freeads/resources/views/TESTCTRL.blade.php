@@ -1,11 +1,8 @@
-<!DOCTYPE html>
+
 
 @include('head')
-    <body>
-    <header>
         @include('header')
-    </header>
-            <section id="menu">
+            <section id="menu" class="bg-light">
                 <article id="menuList1">
                 </br>
                 
@@ -91,7 +88,7 @@
                                 <p style="margin-left:30px"><label for="name">Street : </label><input type="text" class="formu" id="street" name="street" value=" {{$value->street}}" /></p>
                                 <p style="margin-left:30px"><label for="name">Number : </label><input type="text" class="formu" id="number" name="number"  value=" {{$value->number}}" /></p>
                                 <p style="margin-left:30px"><label for="name">Complement : </label><input type="text" class="formu" id="complement" name="complement" value=" {{$value->complement}}" /></p>
-                                <p style="margin-left:30px"><button class="button is-primary" type="submit" name="modif2" onclick="return confirm('Confirm modifications ?')"> Validate modification </button></p>
+                                <p style="margin-left:30px"><button class="button is-primary" value="validation" type="submit" name="modif2" onclick="return confirm('Confirm modifications ?')"> Validate modification </button></p>
           
                             </div>
                             @else
@@ -118,12 +115,10 @@
                                     <p style="margin-left:30px"><label for="name">Street : </label><input type="text" class="formu" id="street" name="street" value=" {{old('street')}}" /></p>
                                     <p style="margin-left:30px"><label for="name">Number : </label><input type="text" class="formu" id="number" name="number"  value=" {{old('number')}}" /></p>
                                     <p style="margin-left:30px"><label for="name">Complement : </label><input type="text" class="formu" id="complement" name="complement" value=" {{old('complement')}}" /></p>
-                                   <p style="margin-left:30px"><button class="button is-primary" type="submit" name="modif2" onclick="return confirm('Confirm modifications ?')"> Validate modification </button></p>
+                                   <p style="margin-left:30px"><button class="button is-primary" type="submit" value="validation" name="modif2" onclick="return confirm('Confirm modifications ?')"> Validate modification </button></p>
                                </div>
                             @endisset  
                         </form>
-
-                       
-    
-    </body>
-</html>
+                </article>
+            </section>
+@include('foot')
