@@ -44,6 +44,7 @@ Route::get('/myads/enable/{id}', [myadsController::class, 'enable']);
 
 // User view & edit his profile
 Route::get('/profile', [profileController::class, 'index']);
+Route::post('/profile', [profileController::class, 'update']);
 
 // Switch between pages.
 Route::get('/page/{number}', [welcomeController::class, 'displayPage']);
