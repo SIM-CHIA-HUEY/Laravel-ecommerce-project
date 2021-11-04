@@ -36,14 +36,35 @@ class TESTCTRL extends Controller
             //print_r( $results);
             //$resultat = = DB::select('select * from locations where id = :id', ['id' => $request->all]);
             $all = $request->all;
-            
+            if($request->submit == "Delete")
+            {
+                //echo "test 2";
+                //print_r($request->all);
+                $affected = DB::update(
+                    'update users set 
+                        active= 0
+                         where id ="'. $request->all . '"',
+                     
+                    
+                );
+                echo "User has been deleted";
+                return view('TESTCTRL', [
+                    'request' => $request->all,
+                'users' => $menu,
+                //'gg' => $results,
+            ]);
+            }
+            else
+            {
+                //echo "test 3";
             //pour renvoyer toutes les variables
             return view('TESTCTRL', [
                 'request' => $request->all,
                 'users' => $menu,
                 'gg' => $results,
                 
-            ]);   
+            ]);  
+            }   
         }
         else
         {
