@@ -18,7 +18,7 @@
                     <p style="text-align:center">Please select or add an user : </p>
                     <!-- <p style="text-align:center">    Indicate an user id : <input type="number" class="formu" id="selid" name="selid" min="1" style="width:50px" value="@isset($request){{$request}}@endisset" /> -->
                     
-                    </p>  
+                    <p> </p>  
                     <div class="centrerlebordel mb-2">
                         List of users : 
                     <select name="all" style="text-align:center,width:300px" class="formu">
@@ -39,8 +39,12 @@
 
                     </div>
   
-                        </form>
+                        
 
+                        <div class="centrerlebordel">
+                        <button class="button is-primary" type="submit" name="submit" value="Delete" > Delete user selected </button>
+                        </div>
+                        </form>
 
                         <form action="{{ url('/adduser') }}" method="get" >
                         <div class="centrerlebordel">
