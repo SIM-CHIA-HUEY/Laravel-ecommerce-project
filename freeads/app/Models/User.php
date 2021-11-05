@@ -48,4 +48,5 @@ class User extends Authenticatable implements MustVerifyEmail
     public function ads(){
         return $this->hasMany(Ad::class,'id','name');
     }
+
 }

@@ -10,7 +10,7 @@ class Ad extends Model
     use HasFactory;
 
     protected $fillable = [
-      'title', 'description','price','image','category_id','location_id','user_id','is_active'
+      'title', 'description','price','image','category_id','location_id','users_id','active'
     ];
 
     public function category_rel(){

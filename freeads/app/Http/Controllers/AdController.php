@@ -28,9 +28,14 @@ class AdController extends Controller
     public function index()
     {
         $ads = Ad::latest()->paginate(5);
+
         return view('ads.index',compact('ads'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
+
+
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -39,6 +44,7 @@ class AdController extends Controller
      */
     public function create()
     {
+
         return view('ads.create');
     }
 
@@ -54,23 +60,16 @@ class AdController extends Controller
             'title' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            //'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required',
             'location_id' => 'required',
             'users_id' => 'required',
             'active' => 'required'
         ]);
 
-        $input = $request->all();
 
-        if ($image = $request->file('image')) {
-            $destinationPath = 'images/';
-            $profileImage = $image->getClientOriginalName();
-            $image->move($destinationPath, $profileImage);
-            $input['image'] = "$profileImage";
-        }
 
-        Ad::create($input);
+        Ad::create($request->all());
 
         return redirect()->route('ads.index')
             ->with('success','Ad created successfully.');
@@ -86,8 +85,9 @@ class AdController extends Controller
     {
         $author = DB::table('users')->where('id', '=', $ad->users_id)->first();
         $category = DB::table('categories')->where('id', '=', $ad->category_id)->first();
-        
-        return view('ads.show',['author' => $author, 'ad' => $ad, 'category' => $category]);
+        $location = DB::table('locations')->where('id', '=', $ad->location_id)->first();
+
+        return view('ads.show',['author' => $author, 'ad' => $ad, 'category' => $category, 'location'=>$location]);
     }
 
     /**
@@ -99,7 +99,7 @@ class AdController extends Controller
     public function edit(Ad $ad)
     {
         $author = DB::table('users')->where('id', '=', $ad->users_id)->first();
-        
+
         return view('ads.edit',['author' => $author, 'ad' => $ad]);
     }
 
@@ -140,6 +140,7 @@ class AdController extends Controller
         return redirect()->route('ads.index')
             ->with('success','Ad updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.
