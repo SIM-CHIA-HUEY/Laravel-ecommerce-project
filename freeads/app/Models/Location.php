@@ -9,7 +9,10 @@ class Location extends Model
 {
     use HasFactory;
 
+    // location has many ads
     public function ads(){
         return $this->hasMany(Ad::class,'id','name');
     }
+
+
 }

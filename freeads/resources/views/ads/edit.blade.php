@@ -94,8 +94,8 @@ use App\Models\User;
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Owner:</strong>
-                    <select name="user_id" class="form-select form-select-md" aria-label="" required>
-                        <option value="{{ $ad->user_id }}" selected="selected">
+                    <select name="users_id" class="form-select form-select-md" aria-label="" required>
+                        <option value="{{ $ad->users_id }}" selected="selected">
                             Current : {{ $author->name }}
                         </option>
                         <?php
@@ -114,14 +114,14 @@ use App\Models\User;
                     <strong>Set public:</strong>
 
                             <div>
-                                <input type="radio" id="is_active" name="is_active" value="1"
-                                       @if ($ad->is_active = 1) checked @endif>
+                                <input type="radio" id="active" name="active" value="1"
+                                       @if ($ad->active = 1) checked @endif>
                                 <label for="is_active">Yes</label>
                             </div>
 
                             <div>
-                                <input type="radio" id="is_active" name="is_active" value="0"
-                                        @if ($ad->is_active = 0) checked @endif>
+                                <input type="radio" id="active" name="active" value="0"
+                                        @if ($ad->active = 0) checked @endif>
                                 <label for="is_active">No</label>
                             </div>
 

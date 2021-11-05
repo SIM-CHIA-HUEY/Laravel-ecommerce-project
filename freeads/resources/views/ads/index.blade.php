@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
-
 @section('content')
-    <div class="row">
+    <div class="row pb-4">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Ads</h2>
+                <h2>Manage Ads</h2>
+                <p>Admin panel where you can create and edit ads of all the users on Free Ads. To be used wisely.</p>
             </div>
             <div class="pull-right">
                 @can('ad-create')
@@ -23,42 +23,35 @@
     @endif
 
 
+
     <table class="table table-bordered">
         <tr>
             <th>Name</th>
-            <th>Description</th>
             <th>Price</th>
-            <th>Image text</th>
-            <th>Image</th>
             <th width="280px">Action</th>
         </tr>
         @foreach ($ads as $ad)
             <tr>
-                <td>{{ $ad->title }}</td>
-                <td>{{ $ad->description }}</td>
+                <td><a href="{{ route('ads.show',$ad->id) }}">{{ $ad->title }}</a></td>
                 <td>${{ $ad->price }}</td>
-                <td>{{ $ad->image }}</td>
-                <td><img src="/images/{{ $ad->image }}" width="100px"></td>
                 <td>
                     <form action="{{ route('ads.destroy',$ad->id) }}" method="POST">
-                        <a class="btn btn-info" href="{{ route('ads.show',$ad->id) }}">Show</a>
+
                         @can('ad-edit')
                             <a class="btn btn-primary" href="{{ route('ads.edit',$ad->id) }}">Edit</a>
                         @endcan
 
-
-                        @csrf
-                        @method('DELETE')
-                        @can('ad-delete')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        @endcan
                     </form>
                 </td>
             </tr>
         @endforeach
+
     </table>
 
-
+    <!-- Pagination (bootstrap) with boot function in AppServiceProvider file -->
+    <div class="d-flex justify-content-center">
+        {!! $ads->links() !!}
+    </div>
 
 
 
