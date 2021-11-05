@@ -42,7 +42,7 @@
                         <button class="button is-primary" type="submit" name="submit" value="Delete" > Delete user selected </button>
                         </div>
                         </form>
-
+                        <p style="margin:5px;"></p>
                         <form action="{{ url('/adduser') }}" method="get" >
                         <div class="centrerlebordel">
                         <button class="button is-primary" type="submit" name="modif3" > Add a new user </button>
