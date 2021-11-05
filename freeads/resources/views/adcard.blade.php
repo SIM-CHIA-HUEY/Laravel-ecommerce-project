@@ -6,11 +6,36 @@
             <div class="card mb-1 p-lg-1">
                 <div class="d-flex row">
                     <!-- Image box -->
-                    <div class="col-5 col-sm-4 col-lg-2 position-relative" style="height: 7rem;">
-                        <img src="{{asset($ads[$i]->url)}}" class="img-fluid h-100" alt="Image missing">
+                    <div class="col-5 col-sm-4 col-lg-2">
+                        <!-- <img src="{{asset($ads[$i]->url)}}" class="img-fluid h-100" alt="Image missing">
                         <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-duckblue">
                             <i class="bi bi-camera me-1"></i> <small>2</small>
-                        </span>
+                        </span> -->
+                        <div id="carouselControls{{$ads[$i]->main_id}}" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                @php
+                                $j = 0
+                                @endphp
+                                @foreach($pictures as $picture)
+                                    @if($picture->ads_id == $ads[$i]->main_id)
+                                        <div class="carousel-item @if($j == 0) active @endif">
+                                            <img src="{{asset($picture->url)}}" class="img-fluid h-100" alt="Image missing">
+                                        </div>
+                                        @php
+                                        $j++
+                                        @endphp
+                                    @endif
+                                @endforeach
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls{{$ads[$i]->main_id}}" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselControls{{$ads[$i]->main_id}}" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
                     </div>
                     <!-- Text box -->
                     <div class="d-flex flex-column col-sm-7 col-5 col-lg-9">
@@ -33,7 +58,7 @@
 <!-- BOX VIEW -->
     @for($i = (($page-1)*8); $i < ($page * 8); $i++)
         @isset($ads[$i])
-        <div class="p-2 col-lg-3 col-md-1 cardad">
+        <div class="p-2 col-lg-3 col-md-6 cardad">
             <a href="{{url('category/'.$ads[$i]->category_id)}}" class="card p-0 btn" style="height:15rem;">
                 <div class="card-head h-70 d-flex">
                     <div class="h-100 w-100"><img class="card-img-top" src="{{asset($ads[$i]->url)}}" alt="Image missing"></div>

@@ -3,10 +3,18 @@
     <div class="sticky-top">
         <!-- HEADER -->
         @include('header')
-        <!-- SEARCHBAR -->
-        @include('searchbar')
-        <!-- CATEGORIES -->
-        @include('categorybar')
+        @isset($ads->id)
+        <div  class="bg-lightblue">
+            <div class="container">
+                <a href="/myads" class="btn"><i class="bi bi-arrow-bar-right"></i> Back to my ads</a>
+            </div>
+        </div>
+        @endisset
+        <div class="bg-light border-bottom">
+            <div class="container p-2">
+                <h4><i class="bi bi-pencil-square"></i> Edit my ads @isset($ads->id)(ad #{{$ads->id}})@endisset</h4>
+            </div>
+        </div>
     </div>
     <div class="container px-4 bg-lightblue h-100">
         @isset($view)

@@ -1,5 +1,4 @@
-<div class="p-md-5">
-    <h5 class="mb-3">Post a new Ad</h5>
+<div class="p-md-2">
     @auth
     @if ($errors->any())
         <div class="alert alert-danger">

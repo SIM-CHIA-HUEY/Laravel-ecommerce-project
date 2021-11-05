@@ -1,6 +1,5 @@
-<div class="p-md-5">
+<div class="p-md-2">
     @auth
-    <h5 class="mb-3">Edit my Ads</h5>
     <div class="accordion" id="AdsAccordion">
         @foreach($ads as $ad)
         <div class="accordion-item">

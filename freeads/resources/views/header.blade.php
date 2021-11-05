@@ -9,14 +9,14 @@
         <div class="d-flex flex-column">
             <a href="/" class="btn btn-md btn-outline-light mx-1 border-0">
                 <div class="text-center"><i class="bi bi-house-door"></i></div>
-                <div class="text-center">Home</div>
+                <div class="d-none d-md-block text-center">Home</div>
             </a>
         </div>
         @auth
         <div class="dropdown">
             <a class="btn btn-outline-light border-0 dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            <div class="text-center"><i class="bi bi-hdd-network"></i></div>
-                {{Auth::user()->name}}
+                <div class="text-center "><i class="bi bi-hdd-network"></i></div>
+                <div class="d-none d-md-block">{{Auth::user()->name}}</div>
             </a>
 
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -34,13 +34,13 @@
                     @csrf
                     <button class="btn btn-md btn-outline-light mx-1 border-0" type="submit">
                         <div class="text-center"><i class="bi bi-box-arrow-in-right"></i></div>
-                        <div class="text-center">{{ __('Log Out') }}</div>
+                        <div class="text-center d-none d-md-block">{{ __('Log Out') }}</div>
                     </button>
                 </form>
             @else
                 <a href="{{ route('login') }}" class="btn btn-md btn-outline-light mx-1 border-0">
                     <div class="text-center"><i class="bi bi-box-arrow-in-right"></i></div>
-                    <div class="text-center">Log in/Register</div>
+                    <div class="text-center d-none d-md-block">Log in/Register</div>
                 </a>
             @endauth
         </div>

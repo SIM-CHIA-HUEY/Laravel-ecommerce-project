@@ -1,11 +1,13 @@
 <div class="bg-light border-bottom">
     <div class="accordion" id="accordionExample">
         <div class="container d-flex flex-row flex-wrap categories">
+            <!-- Filters button -->
             <div class="flex-fill text-center category">
                 <button class="btn btn-duckblue p-1 m-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#filters" aria-controls="filters">
                     Filters
                 </button>
             </div>
+            <!-- Categories button -->
             <i class="align-self-center sbi bi-three-dots-vertical"></i>
             @foreach($categories as $rootCategory)
                 @if($rootCategory->parent_id == NULL)
@@ -17,21 +19,22 @@
                 <i class="align-self-center sbi bi-three-dots-vertical"></i>
                 @endif
             @endforeach
-        </div>
-        @foreach($categories as $rootCategory)
-            @if($rootCategory->parent_id == NULL)
-                <div id="collapse{{$rootCategory->id}}" class="accordion-collapse collapse container p-3" aria-labelledby="heading{{$rootCategory->id}}" data-bs-parent="#accordionExample">
-                    <div class="row">
-                    @foreach($categories as $subCategory)
-                        @if($subCategory->parent_id == $rootCategory->id)
-                            <div class="col-lg-4">
-                                <a href="/category/{{$subCategory->id}}" class="btn">{{$subCategory->name}}</a>
-                            </div>
-                        @endif
-                    @endforeach
+            <!-- Subcategories -->
+            @foreach($categories as $rootCategory)
+                @if($rootCategory->parent_id == NULL)
+                    <div id="collapse{{$rootCategory->id}}" class="accordion-collapse collapse container p-3" aria-labelledby="heading{{$rootCategory->id}}" data-bs-parent="#accordionExample">
+                        <div class="row">
+                        @foreach($categories as $subCategory)
+                            @if($subCategory->parent_id == $rootCategory->id)
+                                <div class="col-lg-4">
+                                    <a href="/category/{{$subCategory->id}}" class="btn">{{$subCategory->name}}</a>
+                                </div>
+                            @endif
+                        @endforeach
+                        </div>
                     </div>
-                </div>
-            @endif
-        @endforeach
+                @endif
+            @endforeach
+        </div>
     </div>
 </div>

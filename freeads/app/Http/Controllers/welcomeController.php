@@ -19,15 +19,17 @@ class welcomeController extends Controller
         $this->adPerPage = 8;
     }
     // Build data for the view.
-    private function getViewData($ads, $categoryList=Null, $page=1) {
+    private function getViewData($ads, $pictures, $categoryList=Null, $page=1) {
         // Reset category list.
         session()->forget('categoryList');
         // Update session data.
         session(['ads' => $ads]);
+        session(['pictures' => $pictures]);
         $data = [
                 'categories' => $this->categories,
                 'ads' => $ads,
                 'page' => $page,
+                'pictures' => $pictures,
                 'number_of_page' => $this->getNumberOfPage($ads)
                 ];
         if(!is_null($categoryList)) {
@@ -37,6 +39,7 @@ class welcomeController extends Controller
         // Return display data.
         return $data;
     }
+    // Main display for ads.
     public function index() {
         // Get ads
         $ads = DB::table('ads')
@@ -44,11 +47,12 @@ class welcomeController extends Controller
                 ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
                 ->where('main_picture', '=', '1')
                 ->join('locations', 'locations.id', '=', 'ads.location_id')
-                ->select('ads.*', 'pictures.url', 'locations.*')
+                ->select('ads.id AS main_id', 'ads.*', 'pictures.url', 'locations.*')
                 ->get();
 
         // Retrieve display data.
-        $viewData = $this->getViewData($ads);
+        $pictures = "";
+        $viewData = $this->getViewData($ads, $pictures);
 
         // Disable display by line instead of box.
         session()->forget('viewinline');
@@ -56,6 +60,7 @@ class welcomeController extends Controller
         // Display the view.
         return view('welcome', $viewData);
     }
+    // User input search.
     public function search(Request $request) {
         $search = '%'.$request->search.'%';
         $location = $request->location;
@@ -68,7 +73,7 @@ class welcomeController extends Controller
                     ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
                     ->where('pictures.main_picture', '=', '1')
                     ->join('locations', 'locations.id', '=', 'ads.location_id')
-                    ->select('ads.*', 'pictures.url', 'locations.*')
+                    ->select('ads.id AS main_id', 'ads.*', 'pictures.url', 'locations.*')
                     ->get();
         } else {
             $location = '%'.$location.'%';
@@ -79,11 +84,17 @@ class welcomeController extends Controller
                     ->where('pictures.main_picture', '=', '1')
                     ->join('locations', 'locations.id', '=', 'ads.location_id')
                     ->where('locations.city', 'like', $location)
-                    ->select('ads.*', 'pictures.url', 'locations.*')
+                    ->select('ads.id AS main_id', 'ads.*', 'pictures.url', 'locations.*')
                     ->get();
         }
+        // Get pictures data
+        $pictures = DB::table('ads')
+                ->where('active', '=', '1')
+                ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
+                ->select('ads.*', 'pictures.*')
+                ->get();
         // Retrieve display data.
-        $viewData = $this->getViewData($ads);
+        $viewData = $this->getViewData($ads, $pictures);
 
         // Active display by line instead of box.
         session(['viewinline'=>true]);
@@ -102,9 +113,15 @@ class welcomeController extends Controller
                 ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
                 ->where('main_picture', '=', '1')
                 ->join('locations', 'locations.id', '=', 'ads.location_id')
-                ->select('ads.*', 'pictures.url', 'locations.*')
+                ->select('ads.id AS main_id', 'ads.*', 'pictures.url', 'locations.*')
                 ->get();
         session(['ads' => $ads]);
+        $pictures = DB::table('ads')
+                    ->where('active', '=', '1')
+                    ->whereIn('ads.category_id', $ids)
+                    ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
+                    ->select('ads.*', 'pictures.*')
+                    ->get();
 
         // Get category list for breadcrumb
         $categoryList = DB::select('with recursive tree AS (
@@ -120,7 +137,7 @@ class welcomeController extends Controller
         session(['viewinline'=>true]);
 
         // Retrive display data.
-        $viewData = $this->getViewData($ads, $categoryList);
+        $viewData = $this->getViewData($ads,$pictures, $categoryList);
 
         // Display the view.
         return view('welcome', $viewData);
@@ -156,6 +173,7 @@ class welcomeController extends Controller
     }
     public function displayPage($page) {
         $ads = session('ads');
+        $pictures = session('pictures');
         $categoryList = session('categoryList');
         if($page > $this->getNumberOfPage($ads)) {
             $page = $this->getNumberOfPage($ads);
@@ -163,7 +181,7 @@ class welcomeController extends Controller
         if($page < 1) {
             $page = 1;
         }
-        $viewData = $this->getViewData($ads, $categoryList, $page);
+        $viewData = $this->getViewData($ads, $pictures, $categoryList, $page);
         return view('welcome', $viewData);
     }
     private function getNumberOfPage($ads) {
@@ -195,8 +213,15 @@ class welcomeController extends Controller
                 }
             }
         }
+        // Get pictures data
+        $pictures = DB::table('ads')
+                ->where('active', '=', '1')
+                ->join('pictures', 'pictures.ads_id', '=', 'ads.id')
+                ->select('ads.*', 'pictures.*')
+                ->get();
+                
         // Retrieve display data.
-        $viewData = $this->getViewData($newAds);
+        $viewData = $this->getViewData($newAds, $pictures);
 
         // Active display by line instead of box.
         session(['viewinline'=>true]);
