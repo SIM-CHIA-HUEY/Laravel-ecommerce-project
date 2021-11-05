@@ -2,6 +2,7 @@
 use App\Models\Ad;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\Picture;
 ?>
 
 @extends('layouts.main')
@@ -22,9 +23,9 @@ use App\Models\User;
 
         <div class="row">
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xs-12 col-sm-12 col-md-12 mb-4">
                 <div class="form-group">
-                    <img src="/images/{{ $ad->image }}" width="500px">
+                    <img src="/images/{{ $picture->url }}" width="200px">
                 </div>
             </div>
 

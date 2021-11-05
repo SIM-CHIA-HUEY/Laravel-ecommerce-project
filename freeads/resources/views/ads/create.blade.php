@@ -2,6 +2,7 @@
 use App\Models\Ad;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\Location;
 ?>
 
 
@@ -10,9 +11,9 @@ use App\Models\User;
 
 @section('content')
     <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Add New Ad</h2>
+        <div class="col-lg-12 margin-tb pt-4 pb-4">
+            <div class="pull-left" style="color: cadetblue">
+                <h4>Post new Ad</h4>
             </div>
         </div>
     </div>
@@ -64,7 +65,6 @@ use App\Models\User;
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Category:</strong>
-
                     <select name="category_id" class="form-select form-select-md mb-1" aria-label="" required>
                         <option selected="selected">
                             Select category
@@ -84,9 +84,14 @@ use App\Models\User;
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Location:</strong>
-                    <input type="text" name="location_id" class="form-control" placeholder="Choose category">
+                    <input type="text" name="number" class="form-control" placeholder="number">
+                    <input type="text" name="street" class="form-control" placeholder="street">
+                    <input type="text" name="postcode" class="form-control" placeholder="postcode">
+                    <input type="text" name="city" class="form-control" placeholder="city">
+                    <input type="text" name="country" class="form-control" placeholder="country">
                 </div>
             </div>
+
 
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
