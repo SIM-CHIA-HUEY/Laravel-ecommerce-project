@@ -2,6 +2,7 @@
 use App\Models\Ad;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\Location;
 ?>
 
 @extends('layouts.main')
@@ -9,9 +10,9 @@ use App\Models\User;
 
 @section('content')
     <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Edit Ad</h2>
+        <div class="col-lg-12 margin-tb pt-4 pb-4">
+            <div class="pull-left" style="color: cadetblue">
+                <h4>Edit your Ad</h4>
             </div>
         </div>
     </div>
@@ -29,16 +30,25 @@ use App\Models\User;
     @endif
 
 
-    <form action="{{ route('ads.update',$ad->id) }}" method="POST">
+    <form action="{{ route('ads.update',$ad->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
 
         <div class="row">
+
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Name:</strong>
-                    <input type="text" name="title" value="{{ $ad->title }}" class="form-control" placeholder="Name">
+                    <img src="/images/{{ $picture->url }}" width="200px"><br>
+                    <strong>Change image:</strong> <br>
+                    <input type="file" id="image" name="image" class="form-control" placeholder="image">
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Title:</strong>
+                    <input type="text" name="title" value="{{ $ad->title }}" class="form-control" placeholder="Title">
                 </div>
             </div>
 
@@ -55,13 +65,7 @@ use App\Models\User;
                 </div>
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Image:</strong>
-                    <input type="file" name="image" class="form-control" placeholder="image">
-                    <img src="/image/{{ $ad->image }}" width="300px">
-                </div>
-            </div>
+
 
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
@@ -87,7 +91,12 @@ use App\Models\User;
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Location:</strong>
-                    <input type="text" name="location_id" value="{{ $ad->location_id }}" class="form-control" placeholder="Choose category">
+                    <input type="text" name="number" value="{{ $location->number }}" class="form-control" placeholder="number">
+                    <input type="text" name="street" value="{{ $location->street }}" class="form-control" placeholder="street">
+                    <input type="text" name="postcode" value="{{ $location->postcode }}" class="form-control" placeholder="postcode">
+                    <input type="text" name="city" value="{{ $location->city }}" class="form-control" placeholder="city">
+                    <input type="text" name="country" value="{{ $location->country }}" class="form-control" placeholder="country">
+
                 </div>
             </div>
 

@@ -10,7 +10,7 @@ class Ad extends Model
     use HasFactory;
 
     protected $fillable = [
-      'title', 'description','price','image','category_id','location_id','users_id','active'
+      'title', 'description','price','category_id','location_id','users_id','active'
     ];
 
     public function category_rel(){
@@ -23,6 +23,10 @@ class Ad extends Model
 
     public function location_rel(){
         return $this->belongsTo(Location::class, 'id','name');
+    }
+
+    public function pictures(){
+        return $this->hasMany(Picture::class,'ads_id','name');
     }
 
 
