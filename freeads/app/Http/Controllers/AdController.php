@@ -80,7 +80,7 @@ class AdController extends Controller
             'number' => $number
         ]);
 
-        //get id of created location
+        //get id of created location : get the last inserted data from database
         $lastEntry = DB::table('locations')->orderBy('id', 'desc')->first();
         $locationID = $lastEntry->id;
 
@@ -218,22 +218,20 @@ class AdController extends Controller
             unset($input['image']);
         }
 
+        
         //UPDATE LOCATION
         //get id of location
         $lastEntry = DB::table('locations')->orderBy('id', 'desc')->first();
-        $locationID = $lastEntry->id;
-
-        
-        DB::table('locations')->whereIn('id', $locationID)->update($request->all());
-        /*
-        DB::table('locations')->update([
+        $locationId = $lastEntry->id;
+        //update address of the right ad's id
+        DB::table('locations')->where('id', '=', $locationId)->update([
             'country' => $country,
             'city' => $city,
             'postcode' => $postcode,
             'street' => $street,
             'number' => $number
         ]);
-        //update the adress where location_id = this location id */
+
 
         //UPDATE AD
         $ad->update($request->all());
