@@ -124,13 +124,13 @@ use App\Models\Location;
 
                             <div>
                                 <input type="radio" id="active" name="active" value="1"
-                                       @if ($ad->active = 1) checked @endif>
+                                       @if ($ad->active == 1) checked @endif>
                                 <label for="is_active">Yes</label>
                             </div>
 
                             <div>
                                 <input type="radio" id="active" name="active" value="0"
-                                        @if ($ad->active = 0) checked @endif>
+                                        @if ($ad->active == 0) checked @endif>
                                 <label for="is_active">No</label>
                             </div>
 

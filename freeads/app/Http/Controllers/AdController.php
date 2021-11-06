@@ -218,13 +218,10 @@ class AdController extends Controller
             unset($input['image']);
         }
 
-        
+
         //UPDATE LOCATION
-        //get id of location
-        $lastEntry = DB::table('locations')->orderBy('id', 'desc')->first();
-        $locationId = $lastEntry->id;
-        //update address of the right ad's id
-        DB::table('locations')->where('id', '=', $locationId)->update([
+        //update address of the current ad's id
+        DB::table('locations')->where('id', '=', $ad->location_id)->update([
             'country' => $country,
             'city' => $city,
             'postcode' => $postcode,

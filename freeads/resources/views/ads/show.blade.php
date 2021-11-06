@@ -86,9 +86,9 @@ use App\Models\Picture;
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong style="color: cadetblue">Visibility:</strong>
-                    @if($ad->active=1)
+                    @if($ad->active==1)
                         This ad has been set to public.
-                    @else
+                    @elseif($ad->active==0)
                         This ad has been set to private.
                     @endif
                 </div>
