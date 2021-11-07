@@ -1,9 +1,9 @@
-#Freeads - e-commerce website
+## Freeads - e-commerce website
 The aim of this project is to learn how to use Laravel to create an e-comerce website with basic authentication and CRUD functionnalities.
 
 Technologies used : PHP, Laravel, Breeze, Spatie, HTML, Bootstrap, Javascript, CSS, MySQL.
 
-Launch instructions :
+## Launch instructions :
 1. Clone the project from GIT.
 2. Run command in your terminal : composer install
 3. Run command in your terminal : npm install
